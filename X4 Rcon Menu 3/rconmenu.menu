@@ -1,0 +1,3406 @@
+//**********************************************************************************
+//                                                                                  
+//        _   _       _        ___  ___      _        ___  ___          _             
+//       | | | |     | |       |  \/  |     | |       |  \/  |         | |            
+//       | |_| | ___ | |_   _  | .  . | ___ | |_   _  | .  . | ___   __| |___       
+//       |  _  |/ _ \| | | | | | |\/| |/ _ \| | | | | | |\/| |/ _ \ / _` / __|      
+//       | | | | (_) | | |_| | | |  | | (_) | | |_| | | |  | | (_) | (_| \__ \      
+//       \_| |_/\___/|_|\__, | \_|  |_/\___/|_|\__, | \_|  |_/\___/ \__,_|___/      
+//                       __/ |                  __/ |                               
+//                      |___/                  |___/                                
+//                                                                                  
+//                       Website: http://www.holymolymods.com                       
+//*********************************************************************************
+
+#include "ui/menudef.h"
+#include "ui_mp/common_macro.inc"
+
+#include "ui_mp/menustyle.inc"
+#include "ui_mp/choices_setup_teams.menu"
+
+{
+
+
+	menuDef
+	{
+		name			"rconmenu"
+		rect			0 0 640 480
+		focuscolor		COLOR_FOCUSED
+		style			WINDOW_STYLE_EMPTY
+		blurWorld		7.0
+		onEsc
+		{
+			play "mouse_click";
+			close self;
+                        scriptMenuResponse "back";
+		}
+
+		// background overlay
+		itemDef
+		{
+			style			WINDOW_STYLE_FILLED
+			rect			0 0 640 480 HORIZONTAL_ALIGN_FULLSCREEN VERTICAL_ALIGN_FULLSCREEN
+			backcolor		0 0 0 0.75 //0 0.05 0.15 0.5
+			visible			1
+			decoration
+		}
+
+		// gradient_top
+		itemDef
+		{
+			style			WINDOW_STYLE_SHADER
+			rect			0 0 854 75 HORIZONTAL_ALIGN_FULLSCREEN 0
+			background		"gradient_top"
+			visible			1
+			decoration
+		}
+
+		// gradient_bottom
+		itemDef
+		{
+			style			WINDOW_STYLE_SHADER
+			rect			0 405 854 75 HORIZONTAL_ALIGN_FULLSCREEN 0
+			background		"gradient_bottom"
+			visible			1
+			decoration
+		}
+
+		#define ORIGIN_BANNER		108 74
+
+		itemDef	{
+			style			WINDOW_STYLE_SHADER
+			rect			ORIGIN_BANNER 400 0.5
+			background		"line_horizontal"
+			forecolor		1 1 1 0.85
+			visible			1	decoration	}
+		itemDef	{
+			style			WINDOW_STYLE_SHADER
+			rect			ORIGIN_BANNER 340 10
+			origin			30 1
+			background		"line_horizontal"
+			forecolor		OBJECTIVE_COLOR_MARINES
+			visible			1
+			decoration	}
+		itemDef	{
+			style			WINDOW_STYLE_SHADER
+			rect			ORIGIN_BANNER 400 0.5
+			origin			0 12
+			background		"line_horizontal"
+			forecolor		1 1 1 0.85
+			visible			1	decoration	}
+
+		itemDef	{
+			rect			-400 90 800 0 HORIZONTAL_ALIGN_CENTER VERTICAL_ALIGN_TOP
+			textstyle		ITEM_TEXTSTYLE_SHADOWED
+			textscale		TEXTSIZE_TITLE
+			textalign		ITEM_ALIGN_CENTER
+			forecolor		COLOR_FOCUSED
+			exp					text( dvarstring(ui_rcon_title) );
+			visible			1	decoration	}
+
+		// ------------------ TREE TITLE ------------------
+
+		CHOICE_MENU_TITLE( "@RC_RCON_MENU" )
+
+		// ------------------ buttons ---------------------
+		#define BACK_OPEN scriptMenuResponse "back";
+		#include "ui_mp/navcontrols.inc"
+
+		// PC widescreen fix
+		#undef	CHOICE_HORIZONTAL_ALIGN
+		#define CHOICE_HORIZONTAL_ALIGN HORIZONTAL_ALIGN_CENTER
+
+		#undef TEXTSIZE_SMALL
+		#define TEXTSIZE_SMALL 0.3
+
+
+		
+// Map gestion
+// Title Map
+		itemDef
+		{
+			type			ITEM_TYPE_TEXT
+			rect			70 125 180 0 HORIZONTAL_ALIGN_DEFAULT VERTICAL_ALIGN_DEFAULT
+			text      "@RC_RCON_MAP"
+			textfont		UI_FONT_NORMAL
+			textscale		.4
+			textstyle		ITEM_TEXTSTYLE_SHADOWED
+			textAlign		ITEM_ALIGN_MIDDLE_LEFT
+			forecolor		COLOR_FOCUSED
+			visible			1
+			decoration	
+		}		
+// 1st Col 
+		itemDef
+		{
+			name      mp_backlot
+			text      "Backlot"
+			type			1
+		  style			WINDOW_STYLE_FILLED
+		  textstyle		ITEM_TEXTSTYLE_SHADOWED
+			rect			50 140 80 15 HORIZONTAL_ALIGN_DEFAULT VERTICAL_ALIGN_DEFAULT
+		  textalign		ITEM_ALIGN_LEFT
+		  textfont		CHOICE_TEXTFONT
+		  textscale		TEXTSIZE_SMALL
+		  textaligny		15
+			forecolor		.9 .9 .95 1
+			visible			1
+		  mouseEnter { play "mouse_over"; } 
+		  action { play "mouse_click"; exec "rcon map mp_backlot"; }	
+		}
+		itemDef
+		{
+			name      mp_bloc
+			text      "Bloc"
+			type			1
+		  style			WINDOW_STYLE_FILLED
+		  textstyle		ITEM_TEXTSTYLE_SHADOWED
+			rect			50 155 80 15 HORIZONTAL_ALIGN_DEFAULT VERTICAL_ALIGN_DEFAULT
+		  textalign		ITEM_ALIGN_LEFT
+		  textfont		CHOICE_TEXTFONT
+		  textscale		TEXTSIZE_SMALL
+		  textaligny		15
+			forecolor		.9 .9 .95 1
+			visible			1
+		  mouseEnter { play "mouse_over"; } 
+		  action { play "mouse_click"; exec "rcon map mp_bloc"; }
+		}
+		itemDef
+		{
+			name      mp_bog
+			text      "Bog"
+			type			1
+		  style			WINDOW_STYLE_FILLED
+		  textstyle		ITEM_TEXTSTYLE_SHADOWED
+			rect			50 170 80 15 HORIZONTAL_ALIGN_DEFAULT VERTICAL_ALIGN_DEFAULT
+		  textalign		ITEM_ALIGN_LEFT
+		  textfont		CHOICE_TEXTFONT
+		  textscale		TEXTSIZE_SMALL
+		  textaligny		15
+			forecolor		.9 .9 .95 1
+			visible			1
+		  mouseEnter { play "mouse_over"; } 
+		  action { play "mouse_click"; exec "rcon map mp_bog"; }
+		}
+		itemDef
+		{
+			name      mp_broadcast
+			text      "Broadcast"
+			type			1
+		  style			WINDOW_STYLE_FILLED
+		  textstyle		ITEM_TEXTSTYLE_SHADOWED
+			rect			50 185 80 15 HORIZONTAL_ALIGN_DEFAULT VERTICAL_ALIGN_DEFAULT
+		  textalign		ITEM_ALIGN_LEFT
+		  textfont		CHOICE_TEXTFONT
+		  textscale		TEXTSIZE_SMALL
+		  textaligny		15
+			forecolor		.9 .9 .95 1
+			visible			1
+		  mouseEnter { play "mouse_over"; } 
+		  action { play "mouse_click"; exec "rcon map mp_broadcast"; }
+		}
+		itemDef
+		{
+			name      mp_carentan
+			text      "Chinatown"
+			type			1
+		  style			WINDOW_STYLE_FILLED
+		  textstyle		ITEM_TEXTSTYLE_SHADOWED
+			rect			50 200 80 15 HORIZONTAL_ALIGN_DEFAULT VERTICAL_ALIGN_DEFAULT
+		  textalign		ITEM_ALIGN_LEFT
+		  textfont		CHOICE_TEXTFONT
+		  textscale		TEXTSIZE_SMALL
+		  textaligny		15
+			forecolor		.9 .9 .95 1
+			visible			1
+		  mouseEnter { play "mouse_over"; } 
+		  action { play "mouse_click"; exec "rcon map mp_carentan"; }
+		}
+		itemDef
+		{
+			name      mp_cargoship
+			text      "Cargoship"
+			type			1
+		  style			WINDOW_STYLE_FILLED
+		  textstyle		ITEM_TEXTSTYLE_SHADOWED
+			rect			50 215 80 15 HORIZONTAL_ALIGN_DEFAULT VERTICAL_ALIGN_DEFAULT
+		  textalign		ITEM_ALIGN_LEFT
+		  textfont		CHOICE_TEXTFONT
+		  textscale		TEXTSIZE_SMALL
+		  textaligny		15
+			forecolor		.9 .9 .95 1
+			visible			1
+		  mouseEnter { play "mouse_over"; } 
+		  action { play "mouse_click"; exec "rcon map mp_cargoship"; }
+		}
+		itemDef
+		{
+			name      	mp_citystreets
+			text		"Districts"
+			type			1
+		  style			WINDOW_STYLE_FILLED
+		  textstyle		ITEM_TEXTSTYLE_SHADOWED
+			rect			50 230 80 15 HORIZONTAL_ALIGN_DEFAULT VERTICAL_ALIGN_DEFAULT
+		  textalign		ITEM_ALIGN_LEFT
+		  textfont		CHOICE_TEXTFONT
+		  textscale		TEXTSIZE_SMALL
+		  textaligny		15
+			forecolor		.9 .9 .95 1
+			visible			1
+		  mouseEnter { play "mouse_over"; } 
+		  action { play "mouse_click"; exec "rcon map mp_citystreets"; }
+		}
+		itemDef
+		{
+			name      	mp_countdown
+			text		"Countdown"
+			type			1
+		  style			WINDOW_STYLE_FILLED
+		  textstyle		ITEM_TEXTSTYLE_SHADOWED
+			rect			50 245 80 15 HORIZONTAL_ALIGN_DEFAULT VERTICAL_ALIGN_DEFAULT
+		  textalign		ITEM_ALIGN_LEFT
+		  textfont		CHOICE_TEXTFONT
+		  textscale		TEXTSIZE_SMALL
+		  textaligny		15
+			forecolor		.9 .9 .95 1
+			visible			1
+		  mouseEnter { play "mouse_over"; } 
+		  action { play "mouse_click"; exec "rcon map mp_countdown"; }
+		}
+		itemDef
+		{
+			name      	mp_crash
+			text		"Crash"
+			type			1
+		  style			WINDOW_STYLE_FILLED
+		  textstyle		ITEM_TEXTSTYLE_SHADOWED
+			rect			50 260 80 15 HORIZONTAL_ALIGN_DEFAULT VERTICAL_ALIGN_DEFAULT
+		  textalign		ITEM_ALIGN_LEFT
+		  textfont		CHOICE_TEXTFONT
+		  textscale		TEXTSIZE_SMALL
+		  textaligny		15
+			forecolor		.9 .9 .95 1
+			visible			1
+		  mouseEnter { play "mouse_over"; } 
+		  action { play "mouse_click"; exec "rcon map mp_Crash"; }
+		}
+		itemDef
+		{
+			name      	mp_crash_snow
+			text		"Crash Snow"
+			type			1
+		  style			WINDOW_STYLE_FILLED
+		  textstyle		ITEM_TEXTSTYLE_SHADOWED
+			rect			50 275 80 15 HORIZONTAL_ALIGN_DEFAULT VERTICAL_ALIGN_DEFAULT
+		  textalign		ITEM_ALIGN_LEFT
+		  textfont		CHOICE_TEXTFONT
+		  textscale		TEXTSIZE_SMALL
+		  textaligny		15
+			forecolor		.9 .9 .95 1
+			visible			1
+		  mouseEnter { play "mouse_over"; } 
+		  action { play "mouse_click"; exec "rcon map mp_crash_snow"; }
+		}
+//2nd Col
+		itemDef
+		{
+			name      	mp_creek
+			text		"Creek"
+			type			1
+		  style			WINDOW_STYLE_FILLED
+		  textstyle		ITEM_TEXTSTYLE_SHADOWED
+			rect			140 140 80 15 HORIZONTAL_ALIGN_DEFAULT VERTICAL_ALIGN_DEFAULT
+		  textalign		ITEM_ALIGN_LEFT
+		  textfont		CHOICE_TEXTFONT
+		  textscale		TEXTSIZE_SMALL
+		  textaligny		15
+			forecolor		.9 .9 .95 1
+			visible			1
+		  mouseEnter { play "mouse_over"; } 
+		  action { play "mouse_click"; exec "rcon map mp_creek"; }
+		}
+		itemDef
+		{
+			name      	mp_crossfire
+			text		"Crossfire"
+			type			1
+		  style			WINDOW_STYLE_FILLED
+		  textstyle		ITEM_TEXTSTYLE_SHADOWED
+			rect			140 155 80 15 HORIZONTAL_ALIGN_DEFAULT VERTICAL_ALIGN_DEFAULT
+		  textalign		ITEM_ALIGN_LEFT
+		  textfont		CHOICE_TEXTFONT
+		  textscale		TEXTSIZE_SMALL
+		  textaligny		15
+			forecolor		.9 .9 .95 1
+			visible			1
+		  mouseEnter { play "mouse_over"; } 
+		  action { play "mouse_click"; exec "rcon map mp_crossfire"; }
+		}
+		itemDef
+		{
+			name      	mp_farm
+			text		"Farm"
+			type			1
+		  style			WINDOW_STYLE_FILLED
+		  textstyle		ITEM_TEXTSTYLE_SHADOWED
+			rect			140 170 80 15 HORIZONTAL_ALIGN_DEFAULT VERTICAL_ALIGN_DEFAULT
+		  textalign		ITEM_ALIGN_LEFT
+		  textfont		CHOICE_TEXTFONT
+		  textscale		TEXTSIZE_SMALL
+		  textaligny		15
+			forecolor		.9 .9 .95 1
+			visible			1
+		  mouseEnter { play "mouse_over"; } 
+		  action { play "mouse_click"; exec "rcon map mp_farm"; }
+		}
+		itemDef
+		{
+			name      	mp_killhouse
+			text		"Killhouse"
+			type			1
+		  style			WINDOW_STYLE_FILLED
+		  textstyle		ITEM_TEXTSTYLE_SHADOWED
+			rect			140 185 80 15 HORIZONTAL_ALIGN_DEFAULT VERTICAL_ALIGN_DEFAULT
+		  textalign		ITEM_ALIGN_LEFT
+		  textfont		CHOICE_TEXTFONT
+		  textscale		TEXTSIZE_SMALL
+		  textaligny		15
+			forecolor		.9 .9 .95 1
+			visible			1
+		  mouseEnter { play "mouse_over"; } 
+		  action { play "mouse_click"; exec "rcon map mp_killhouse"; }
+		}
+		itemDef
+		{
+			name      	mp_overgrown
+			text		"Overgrown"
+			type			1
+		  style			WINDOW_STYLE_FILLED
+		  textstyle		ITEM_TEXTSTYLE_SHADOWED
+			rect			140 200 80 15 HORIZONTAL_ALIGN_DEFAULT VERTICAL_ALIGN_DEFAULT
+		  textalign		ITEM_ALIGN_LEFT
+		  textfont		CHOICE_TEXTFONT
+		  textscale		TEXTSIZE_SMALL
+		  textaligny		15
+			forecolor		.9 .9 .95 1
+			visible			1
+		  mouseEnter { play "mouse_over"; } 
+		  action { play "mouse_click"; exec "rcon map mp_overgrown"; }
+		}
+		itemDef
+		{
+			name      	mp_pipeline
+			text		"Pipeline"
+			type			1
+		  style			WINDOW_STYLE_FILLED
+		  textstyle		ITEM_TEXTSTYLE_SHADOWED
+			rect			140 215 80 15 HORIZONTAL_ALIGN_DEFAULT VERTICAL_ALIGN_DEFAULT
+		  textalign		ITEM_ALIGN_LEFT
+		  textfont		CHOICE_TEXTFONT
+		  textscale		TEXTSIZE_SMALL
+		  textaligny		15
+			forecolor		.9 .9 .95 1
+			visible			1
+		  mouseEnter { play "mouse_over"; } 
+		  action { play "mouse_click"; exec "rcon map mp_pipeline"; }
+		}
+		itemDef
+		{
+			name      	mp_shipment
+			text		"Shipment"
+			type			1
+		  style			WINDOW_STYLE_FILLED
+		  textstyle		ITEM_TEXTSTYLE_SHADOWED
+			rect			140 230 80 15 HORIZONTAL_ALIGN_DEFAULT VERTICAL_ALIGN_DEFAULT
+		  textalign		ITEM_ALIGN_LEFT
+		  textfont		CHOICE_TEXTFONT
+		  textscale		TEXTSIZE_SMALL
+		  textaligny		15
+			forecolor		.9 .9 .95 1
+			visible			1
+		  mouseEnter { play "mouse_over"; } 
+		  action { play "mouse_click"; exec "rcon map mp_shipment"; }
+		}
+		itemDef
+		{
+			name      	mp_showdown
+			text		"Showdown"
+			type			1
+		  style			WINDOW_STYLE_FILLED
+		  textstyle		ITEM_TEXTSTYLE_SHADOWED
+			rect			140 245 80 15 HORIZONTAL_ALIGN_DEFAULT VERTICAL_ALIGN_DEFAULT
+		  textalign		ITEM_ALIGN_LEFT
+		  textfont		CHOICE_TEXTFONT
+		  textscale		TEXTSIZE_SMALL
+		  textaligny		15
+			forecolor		.9 .9 .95 1
+			visible			1
+		  mouseEnter { play "mouse_over"; } 
+		  action { play "mouse_click"; exec "rcon map mp_showdown"; }
+		}
+		itemDef
+		{
+			name      	mp_strike
+			text		"Strike"
+			type			1
+		  style			WINDOW_STYLE_FILLED
+		  textstyle		ITEM_TEXTSTYLE_SHADOWED
+			rect			140 260 80 15 HORIZONTAL_ALIGN_DEFAULT VERTICAL_ALIGN_DEFAULT
+		  textalign		ITEM_ALIGN_LEFT
+		  textfont		CHOICE_TEXTFONT
+		  textscale		TEXTSIZE_SMALL
+		  textaligny		15
+			forecolor		.9 .9 .95 1
+			visible			1
+		  mouseEnter { play "mouse_over"; } 
+		  action { play "mouse_click"; exec "rcon map mp_strike"; }
+		}
+
+//Map Custom
+//Title map custom
+		itemDef
+		{
+			type			ITEM_TYPE_TEXT
+			rect			70 305 180 0 HORIZONTAL_ALIGN_DEFAULT VERTICAL_ALIGN_DEFAULT
+			text      "@RC_RCON_MAPCUSTOM"
+			textfont		UI_FONT_NORMAL
+			textscale		.4
+			textstyle		ITEM_TEXTSTYLE_SHADOWED
+			textAlign		ITEM_ALIGN_MIDDLE_LEFT
+			forecolor		COLOR_FOCUSED
+			visible			1
+			decoration	
+		}		
+// 1st Col
+		itemDef
+		{
+			name      ui_map_0
+			exp				text( dvarstring(ui_map_name_0) );
+			type			1
+		  style			WINDOW_STYLE_FILLED
+		  textstyle		ITEM_TEXTSTYLE_SHADOWED
+			rect			50 315 80 15 HORIZONTAL_ALIGN_DEFAULT VERTICAL_ALIGN_DEFAULT
+		  textalign		ITEM_ALIGN_LEFT
+		  textfont		CHOICE_TEXTFONT
+		  textscale		TEXTSIZE_SMALL
+		  textaligny		15
+			forecolor		.9 .9 .95 1
+			visible			1
+		  mouseEnter { play "mouse_over"; } 
+		  action { play "mouse_click"; exec "rcon set ui_map 1"; }
+		}
+		itemDef
+		{
+			name      ui_map_1
+			exp				text( dvarstring(ui_map_name_1) );
+			type			1
+		  style			WINDOW_STYLE_FILLED
+		  textstyle		ITEM_TEXTSTYLE_SHADOWED
+			rect			50 330 80 15 HORIZONTAL_ALIGN_DEFAULT VERTICAL_ALIGN_DEFAULT
+		  textalign		ITEM_ALIGN_LEFT
+		  textfont		CHOICE_TEXTFONT
+		  textscale		TEXTSIZE_SMALL
+		  textaligny		15
+			forecolor		.9 .9 .95 1
+			visible			1
+		  mouseEnter { play "mouse_over"; } 
+		  action { play "mouse_click"; exec "rcon set ui_map 2"; }
+		}
+		itemDef
+		{
+			name      ui_map_2
+			exp				text( dvarstring(ui_map_name_2) );
+			type			1
+		  style			WINDOW_STYLE_FILLED
+		  textstyle		ITEM_TEXTSTYLE_SHADOWED
+			rect			50 345 80 15 HORIZONTAL_ALIGN_DEFAULT VERTICAL_ALIGN_DEFAULT
+		  textalign		ITEM_ALIGN_LEFT
+		  textfont		CHOICE_TEXTFONT
+		  textscale		TEXTSIZE_SMALL
+		  textaligny		15
+			forecolor		.9 .9 .95 1
+			visible			1	
+		  mouseEnter { play "mouse_over"; } 
+		  action { play "mouse_click"; exec "rcon set ui_map 3"; }	
+		}
+		itemDef
+		{
+			name      ui_map_3
+			exp				text( dvarstring(ui_map_name_3) );
+			type			1
+		  style			WINDOW_STYLE_FILLED
+		  textstyle		ITEM_TEXTSTYLE_SHADOWED
+			rect			50 360 80 15 HORIZONTAL_ALIGN_DEFAULT VERTICAL_ALIGN_DEFAULT
+		  textalign		ITEM_ALIGN_LEFT
+		  textfont		CHOICE_TEXTFONT
+		  textscale		TEXTSIZE_SMALL
+		  textaligny		15
+			forecolor		.9 .9 .95 1
+			visible			1
+		  mouseEnter { play "mouse_over"; } 
+		  action { play "mouse_click"; exec "rcon set ui_map 4"; }
+		}
+		itemDef
+		{
+			name      ui_map_4
+			exp				text( dvarstring(ui_map_name_4) );
+			type			1
+		  style			WINDOW_STYLE_FILLED
+		  textstyle		ITEM_TEXTSTYLE_SHADOWED
+			rect			50 375 80 15 HORIZONTAL_ALIGN_DEFAULT VERTICAL_ALIGN_DEFAULT
+		  textalign		ITEM_ALIGN_LEFT
+		  textfont		CHOICE_TEXTFONT
+		  textscale		TEXTSIZE_SMALL
+		  textaligny		15
+			forecolor		.9 .9 .95 1
+			visible			1
+		  mouseEnter { play "mouse_over"; } 
+		  action { play "mouse_click"; exec "rcon set ui_map 5"; }
+		}
+		itemDef
+		{
+			name      ui_map_5
+			exp				text( dvarstring(ui_map_name_5) );
+			type			1
+		  style			WINDOW_STYLE_FILLED
+		  textstyle		ITEM_TEXTSTYLE_SHADOWED
+			rect			50 390 80 15 HORIZONTAL_ALIGN_DEFAULT VERTICAL_ALIGN_DEFAULT
+		  textalign		ITEM_ALIGN_LEFT
+		  textfont		CHOICE_TEXTFONT
+		  textscale		TEXTSIZE_SMALL
+		  textaligny		15
+			forecolor		.9 .9 .95 1
+			visible			1
+		  mouseEnter { play "mouse_over"; } 
+		  action { play "mouse_click"; exec "rcon set ui_map 6"; }
+		}
+		itemDef
+		{
+			name      ui_map_6
+			exp				text( dvarstring(ui_map_name_6) );
+			type			1
+		  style			WINDOW_STYLE_FILLED
+		  textstyle		ITEM_TEXTSTYLE_SHADOWED
+			rect			50 405 80 15 HORIZONTAL_ALIGN_DEFAULT VERTICAL_ALIGN_DEFAULT
+		  textalign		ITEM_ALIGN_LEFT
+		  textfont		CHOICE_TEXTFONT
+		  textscale		TEXTSIZE_SMALL
+		  textaligny		15
+			forecolor		.9 .9 .95 1
+			visible			1
+		  mouseEnter { play "mouse_over"; } 
+		  action { play "mouse_click"; exec "rcon set ui_map 7"; }
+		}
+		itemDef
+		{
+			name      ui_map_7
+			exp				text( dvarstring(ui_map_name_7) );
+			type			1
+		  style			WINDOW_STYLE_FILLED
+		  textstyle		ITEM_TEXTSTYLE_SHADOWED
+			rect			50 420 80 15 HORIZONTAL_ALIGN_DEFAULT VERTICAL_ALIGN_DEFAULT
+		  textalign		ITEM_ALIGN_LEFT
+		  textfont		CHOICE_TEXTFONT
+		  textscale		TEXTSIZE_SMALL
+		  textaligny		15
+			forecolor		.9 .9 .95 1
+			visible			1
+		  mouseEnter { play "mouse_over"; } 
+		  action { play "mouse_click"; exec "rcon set ui_map 8"; }
+		}
+
+//2nd Col
+		itemDef
+		{
+			name      ui_map_8
+			exp				text( dvarstring(ui_map_name_8) );
+			type			1
+		  style			WINDOW_STYLE_FILLED
+		  textstyle		ITEM_TEXTSTYLE_SHADOWED
+			rect			140 315 80 15 HORIZONTAL_ALIGN_DEFAULT VERTICAL_ALIGN_DEFAULT
+		  textalign		ITEM_ALIGN_LEFT
+		  textfont		CHOICE_TEXTFONT
+		  textscale		TEXTSIZE_SMALL
+		  textaligny		15
+			forecolor		.9 .9 .95 1
+			visible			1
+		  mouseEnter { play "mouse_over"; } 
+		  action { play "mouse_click"; exec "rcon set ui_map 9"; }
+		}
+		itemDef
+		{
+			name      ui_map_9
+			exp				text( dvarstring(ui_map_name_9) );
+			type			1
+		  style			WINDOW_STYLE_FILLED
+		  textstyle		ITEM_TEXTSTYLE_SHADOWED
+			rect			140 330 80 15 HORIZONTAL_ALIGN_DEFAULT VERTICAL_ALIGN_DEFAULT
+		  textalign		ITEM_ALIGN_LEFT
+		  textfont		CHOICE_TEXTFONT
+		  textscale		TEXTSIZE_SMALL
+		  textaligny		15
+			forecolor		.9 .9 .95 1
+			visible			1
+		  mouseEnter { play "mouse_over"; } 
+		  action { play "mouse_click"; exec "rcon set ui_map 10"; }
+		}
+		itemDef
+		{
+			name      ui_map_10
+			exp				text( dvarstring(ui_map_name_10) );
+			type			1
+		  style			WINDOW_STYLE_FILLED
+		  textstyle		ITEM_TEXTSTYLE_SHADOWED
+			rect			140 345 80 15 HORIZONTAL_ALIGN_DEFAULT VERTICAL_ALIGN_DEFAULT
+		  textalign		ITEM_ALIGN_LEFT
+		  textfont		CHOICE_TEXTFONT
+		  textscale		TEXTSIZE_SMALL
+		  textaligny		15
+			forecolor		.9 .9 .95 1
+			visible			1
+		  mouseEnter { play "mouse_over"; } 
+		  action { play "mouse_click"; exec "rcon set ui_map 11"; }
+		}
+		itemDef
+		{
+			name      ui_map_11
+			exp				text( dvarstring(ui_map_name_11) );
+			type			1
+		  style			WINDOW_STYLE_FILLED
+		  textstyle		ITEM_TEXTSTYLE_SHADOWED
+			rect			140 360 80 15 HORIZONTAL_ALIGN_DEFAULT VERTICAL_ALIGN_DEFAULT
+		  textalign		ITEM_ALIGN_LEFT
+		  textfont		CHOICE_TEXTFONT
+		  textscale		TEXTSIZE_SMALL
+		  textaligny		15
+			forecolor		.9 .9 .95 1
+			visible			1
+		  mouseEnter { play "mouse_over"; } 
+		  action { play "mouse_click"; exec "rcon set ui_map 12"; }
+		}
+		itemDef
+		{
+			name      ui_map_12
+			exp				text( dvarstring(ui_map_name_12) );
+			type			1
+		  style			WINDOW_STYLE_FILLED
+		  textstyle		ITEM_TEXTSTYLE_SHADOWED
+			rect			140 375 80 15 HORIZONTAL_ALIGN_DEFAULT VERTICAL_ALIGN_DEFAULT
+		  textalign		ITEM_ALIGN_LEFT
+		  textfont		CHOICE_TEXTFONT
+		  textscale		TEXTSIZE_SMALL
+		  textaligny		15
+			forecolor		.9 .9 .95 1
+			visible			1
+		  mouseEnter { play "mouse_over"; } 
+		  action { play "mouse_click"; exec "rcon set ui_map 13"; }
+		}
+		itemDef
+		{
+			name      ui_map_13
+			exp				text( dvarstring(ui_map_name_13) );
+			type			1
+		  style			WINDOW_STYLE_FILLED
+		  textstyle		ITEM_TEXTSTYLE_SHADOWED
+			rect			140 390 80 15 HORIZONTAL_ALIGN_DEFAULT VERTICAL_ALIGN_DEFAULT
+		  textalign		ITEM_ALIGN_LEFT
+		  textfont		CHOICE_TEXTFONT
+		  textscale		TEXTSIZE_SMALL
+		  textaligny		15
+			forecolor		.9 .9 .95 1
+			visible			1
+		  mouseEnter { play "mouse_over"; } 
+		  action { play "mouse_click"; exec "rcon set ui_map 14"; }
+		}
+		itemDef
+		{
+			name      ui_map_14
+			exp				text( dvarstring(ui_map_name_14) );
+			type			1
+		  style			WINDOW_STYLE_FILLED
+		  textstyle		ITEM_TEXTSTYLE_SHADOWED
+			rect			140 405 80 15 HORIZONTAL_ALIGN_DEFAULT VERTICAL_ALIGN_DEFAULT
+		  textalign		ITEM_ALIGN_LEFT
+		  textfont		CHOICE_TEXTFONT
+		  textscale		TEXTSIZE_SMALL
+		  textaligny		15
+			forecolor		.9 .9 .95 1
+			visible			1
+		  mouseEnter { play "mouse_over"; } 
+		  action { play "mouse_click"; exec "rcon set ui_map 15"; }
+		}
+		itemDef
+		{
+			name      ui_map_15
+			exp				text( dvarstring(ui_map_name_15) );
+			type			1
+		  style			WINDOW_STYLE_FILLED
+		  textstyle		ITEM_TEXTSTYLE_SHADOWED
+			rect			140 420 80 15 HORIZONTAL_ALIGN_DEFAULT VERTICAL_ALIGN_DEFAULT
+		  textalign		ITEM_ALIGN_LEFT
+		  textfont		CHOICE_TEXTFONT
+		  textscale		TEXTSIZE_SMALL
+		  textaligny		15
+			forecolor		.9 .9 .95 1
+			visible			1
+		  mouseEnter { play "mouse_over"; } 
+		  action { play "mouse_click"; exec "rcon set ui_map 16"; }
+		}
+
+//Kick Player
+//Title kick player
+		itemDef
+		{
+			type			ITEM_TYPE_TEXT
+			rect			240 125 80 0 HORIZONTAL_ALIGN_DEFAULT VERTICAL_ALIGN_DEFAULT
+			text      "@RC_RCON_KICK_PLAYER"
+			textfont		UI_FONT_NORMAL
+			textscale		.4
+			textstyle		ITEM_TEXTSTYLE_SHADOWED
+			textAlign		ITEM_ALIGN_MIDDLE_LEFT
+			forecolor		COLOR_FOCUSED
+			visible			1
+			decoration	
+		}
+// 1st col
+		itemDef
+		{
+			name      playerk0
+			text      " 0"
+			type			1
+		  style			WINDOW_STYLE_FILLED
+		  textstyle		ITEM_TEXTSTYLE_SHADOWED
+			rect			235 140 15 15 HORIZONTAL_ALIGN_DEFAULT VERTICAL_ALIGN_DEFAULT
+		  textalign		ITEM_ALIGN_LEFT
+		  textfont		CHOICE_TEXTFONT
+		  textscale		TEXTSIZE_SMALL
+		  textaligny		15
+			forecolor		.9 .9 .95 1
+			visible			1
+		  mouseEnter { play "mouse_over"; } 
+		  action { play "mouse_click"; exec "rcon clientkick 0"; }
+		}
+		itemDef
+		{
+			name      playerk1
+			text      " 1"
+			type			1
+		  style			WINDOW_STYLE_FILLED
+		  textstyle		ITEM_TEXTSTYLE_SHADOWED
+			rect			235 155 15 15 HORIZONTAL_ALIGN_DEFAULT VERTICAL_ALIGN_DEFAULT
+		  textalign		ITEM_ALIGN_LEFT
+		  textfont		CHOICE_TEXTFONT
+		  textscale		TEXTSIZE_SMALL
+		  textaligny		15
+			forecolor		.9 .9 .95 1
+			visible			1
+		  mouseEnter { play "mouse_over"; } 
+		  action { play "mouse_click"; exec "rcon clientkick 1"; }
+		}
+		itemDef
+		{
+			name      playerk2
+			text      " 2"
+			type			1
+		  style			WINDOW_STYLE_FILLED
+		  textstyle		ITEM_TEXTSTYLE_SHADOWED
+			rect			235 170 15 15 HORIZONTAL_ALIGN_DEFAULT VERTICAL_ALIGN_DEFAULT
+		  textalign		ITEM_ALIGN_LEFT
+		  textfont		CHOICE_TEXTFONT
+		  textscale		TEXTSIZE_SMALL
+		  textaligny		15
+			forecolor		.9 .9 .95 1
+			visible			1
+		  mouseEnter { play "mouse_over"; } 
+		  action { play "mouse_click"; exec "rcon clientkick 2"; }
+		}
+		itemDef
+		{
+			name      playerk3
+			text      " 3"
+			type			1
+		  style			WINDOW_STYLE_FILLED
+		  textstyle		ITEM_TEXTSTYLE_SHADOWED
+			rect			235 185 15 15 HORIZONTAL_ALIGN_DEFAULT VERTICAL_ALIGN_DEFAULT
+		  textalign		ITEM_ALIGN_LEFT
+		  textfont		CHOICE_TEXTFONT
+		  textscale		TEXTSIZE_SMALL
+		  textaligny		15
+			forecolor		.9 .9 .95 1
+			visible			1
+		  mouseEnter { play "mouse_over"; } 
+		  action { play "mouse_click"; exec "rcon clientkick 3"; }
+		}
+		itemDef
+		{
+			name      playerk4
+			text      " 4"
+			type			1
+		  style			WINDOW_STYLE_FILLED
+		  textstyle		ITEM_TEXTSTYLE_SHADOWED
+			rect			235 200 15 15 HORIZONTAL_ALIGN_DEFAULT VERTICAL_ALIGN_DEFAULT
+		  textalign		ITEM_ALIGN_LEFT
+		  textfont		CHOICE_TEXTFONT
+		  textscale		TEXTSIZE_SMALL
+		  textaligny		15
+			forecolor		.9 .9 .95 1
+			visible			1
+		  mouseEnter { play "mouse_over"; } 
+		  action { play "mouse_click"; exec "rcon clientkick 4"; }
+		}
+		itemDef
+		{
+			name      playerk5
+			text      " 5"
+			type			1
+		  style			WINDOW_STYLE_FILLED
+		  textstyle		ITEM_TEXTSTYLE_SHADOWED
+			rect			235 215 15 15 HORIZONTAL_ALIGN_DEFAULT VERTICAL_ALIGN_DEFAULT
+		  textalign		ITEM_ALIGN_LEFT
+		  textfont		CHOICE_TEXTFONT
+		  textscale		TEXTSIZE_SMALL
+		  textaligny		15
+			forecolor		.9 .9 .95 1
+			visible			1
+		  mouseEnter { play "mouse_over"; } 
+		  action { play "mouse_click"; exec "rcon clientkick 5"; }
+		}
+		itemDef
+		{
+			name      playerk6
+			text      " 6"
+			type			1
+		  style			WINDOW_STYLE_FILLED
+		  textstyle		ITEM_TEXTSTYLE_SHADOWED
+			rect			235 230 15 15 HORIZONTAL_ALIGN_DEFAULT VERTICAL_ALIGN_DEFAULT
+		  textalign		ITEM_ALIGN_LEFT
+		  textfont		CHOICE_TEXTFONT
+		  textscale		TEXTSIZE_SMALL
+		  textaligny		15
+			forecolor		.9 .9 .95 1
+			visible			1
+		  mouseEnter { play "mouse_over"; } 
+		  action { play "mouse_click"; exec "rcon clientkick 6"; }
+		}
+		itemDef
+		{
+			name      playerk7
+			text      " 7"
+			type			1
+		  style			WINDOW_STYLE_FILLED
+		  textstyle		ITEM_TEXTSTYLE_SHADOWED
+			rect			235 245 15 15 HORIZONTAL_ALIGN_DEFAULT VERTICAL_ALIGN_DEFAULT
+		  textalign		ITEM_ALIGN_LEFT
+		  textfont		CHOICE_TEXTFONT
+		  textscale		TEXTSIZE_SMALL
+		  textaligny		15
+			forecolor		.9 .9 .95 1
+			visible			1
+		  mouseEnter { play "mouse_over"; } 
+		  action { play "mouse_click"; exec "rcon clientkick 7"; }
+		}
+// 2nd col
+		itemDef
+		{
+			name      playerk8
+			text      " 8"
+			type			1
+		  style			WINDOW_STYLE_FILLED
+		  textstyle		ITEM_TEXTSTYLE_SHADOWED
+			rect			250 140 15 15 HORIZONTAL_ALIGN_DEFAULT VERTICAL_ALIGN_DEFAULT
+		  textalign		ITEM_ALIGN_LEFT
+		  textfont		CHOICE_TEXTFONT
+		  textscale		TEXTSIZE_SMALL
+		  textaligny		15
+			forecolor		.9 .9 .95 1
+			visible			1
+		  mouseEnter { play "mouse_over"; } 
+		  action { play "mouse_click"; exec "rcon clientkick 8"; }
+		}
+		itemDef
+		{
+			name      playerk9
+			text      " 9"
+			type			1
+		  style			WINDOW_STYLE_FILLED
+		  textstyle		ITEM_TEXTSTYLE_SHADOWED
+			rect			250 155 15 15 HORIZONTAL_ALIGN_DEFAULT VERTICAL_ALIGN_DEFAULT
+		  textalign		ITEM_ALIGN_LEFT
+		  textfont		CHOICE_TEXTFONT
+		  textscale		TEXTSIZE_SMALL
+		  textaligny		15
+			forecolor		.9 .9 .95 1
+			visible			1
+		  mouseEnter { play "mouse_over"; } 
+		  action { play "mouse_click"; exec "rcon clientkick 9"; }
+		}
+		itemDef
+		{
+			name      playerk10
+			text      "10"
+			type			1
+		  style			WINDOW_STYLE_FILLED
+		  textstyle		ITEM_TEXTSTYLE_SHADOWED
+			rect			250 170 15 15 HORIZONTAL_ALIGN_DEFAULT VERTICAL_ALIGN_DEFAULT
+		  textalign		ITEM_ALIGN_LEFT
+		  textfont		CHOICE_TEXTFONT
+		  textscale		TEXTSIZE_SMALL
+		  textaligny		15
+			forecolor		.9 .9 .95 1
+			visible			1
+		  mouseEnter { play "mouse_over"; } 
+		  action { play "mouse_click"; exec "rcon clientkick 10"; }
+		}
+		itemDef
+		{
+			name      playerk11
+			text      "11"
+			type			1
+		  style			WINDOW_STYLE_FILLED
+		  textstyle		ITEM_TEXTSTYLE_SHADOWED
+			rect			250 185 15 15 HORIZONTAL_ALIGN_DEFAULT VERTICAL_ALIGN_DEFAULT
+		  textalign		ITEM_ALIGN_LEFT
+		  textfont		CHOICE_TEXTFONT
+		  textscale		TEXTSIZE_SMALL
+		  textaligny		15
+			forecolor		.9 .9 .95 1
+			visible			1
+		  mouseEnter { play "mouse_over"; } 
+		  action { play "mouse_click"; exec "rcon clientkick 11"; }
+		}
+		itemDef
+		{
+			name      playerk12
+			text      "12"
+			type			1
+		  style			WINDOW_STYLE_FILLED
+		  textstyle		ITEM_TEXTSTYLE_SHADOWED
+			rect			250 200 15 15 HORIZONTAL_ALIGN_DEFAULT VERTICAL_ALIGN_DEFAULT
+		  textalign		ITEM_ALIGN_LEFT
+		  textfont		CHOICE_TEXTFONT
+		  textscale		TEXTSIZE_SMALL
+		  textaligny		15
+			forecolor		.9 .9 .95 1
+			visible			1
+		  mouseEnter { play "mouse_over"; } 
+		  action { play "mouse_click"; exec "rcon clientkick 12"; }
+		}
+		itemDef
+		{
+			name      playerk13
+			text      "13"
+			type			1
+		  style			WINDOW_STYLE_FILLED
+		  textstyle		ITEM_TEXTSTYLE_SHADOWED
+			rect			250 215 15 15 HORIZONTAL_ALIGN_DEFAULT VERTICAL_ALIGN_DEFAULT
+		  textalign		ITEM_ALIGN_LEFT
+		  textfont		CHOICE_TEXTFONT
+		  textscale		TEXTSIZE_SMALL
+		  textaligny		15
+			forecolor		.9 .9 .95 1
+			visible			1
+		  mouseEnter { play "mouse_over"; } 
+		  action { play "mouse_click"; exec "rcon clientkick 13"; }
+		}
+		itemDef
+		{
+			name      playerk14
+			text      "14"
+			type			1
+		  style			WINDOW_STYLE_FILLED
+		  textstyle		ITEM_TEXTSTYLE_SHADOWED
+			rect			250 230 15 15 HORIZONTAL_ALIGN_DEFAULT VERTICAL_ALIGN_DEFAULT
+		  textalign		ITEM_ALIGN_LEFT
+		  textfont		CHOICE_TEXTFONT
+		  textscale		TEXTSIZE_SMALL
+		  textaligny		15
+			forecolor		.9 .9 .95 1
+			visible			1
+		  mouseEnter { play "mouse_over"; } 
+		  action { play "mouse_click"; exec "rcon clientkick 14"; }
+		}
+		itemDef
+		{
+			name      playerk15
+			text      "15"
+			type			1
+		  style			WINDOW_STYLE_FILLED
+		  textstyle		ITEM_TEXTSTYLE_SHADOWED
+			rect			250 245 15 15 HORIZONTAL_ALIGN_DEFAULT VERTICAL_ALIGN_DEFAULT
+		  textalign		ITEM_ALIGN_LEFT
+		  textfont		CHOICE_TEXTFONT
+		  textscale		TEXTSIZE_SMALL
+		  textaligny		15
+			forecolor		.9 .9 .95 1
+			visible			1
+		  mouseEnter { play "mouse_over"; } 
+		  action { play "mouse_click"; exec "rcon clientkick 15"; }
+		}
+// 3rd col
+		itemDef
+		{
+			name      playerk16
+			text      "16"
+			type			1
+		  style			WINDOW_STYLE_FILLED
+		  textstyle		ITEM_TEXTSTYLE_SHADOWED
+			rect			270 140 15 15 HORIZONTAL_ALIGN_DEFAULT VERTICAL_ALIGN_DEFAULT
+		  textalign		ITEM_ALIGN_LEFT
+		  textfont		CHOICE_TEXTFONT
+		  textscale		TEXTSIZE_SMALL
+		  textaligny		15
+			forecolor		.9 .9 .95 1
+			visible			1
+		  mouseEnter { play "mouse_over"; } 
+		  action { play "mouse_click"; exec "rcon clientkick 16"; }
+		}
+		itemDef
+		{
+			name      playerk17
+			text      "17"
+			type			1
+		  style			WINDOW_STYLE_FILLED
+		  textstyle		ITEM_TEXTSTYLE_SHADOWED
+			rect			270 155 15 15 HORIZONTAL_ALIGN_DEFAULT VERTICAL_ALIGN_DEFAULT
+		  textalign		ITEM_ALIGN_LEFT
+		  textfont		CHOICE_TEXTFONT
+		  textscale		TEXTSIZE_SMALL
+		  textaligny		15
+			forecolor		.9 .9 .95 1
+			visible			1
+		  mouseEnter { play "mouse_over"; } 
+		  action { play "mouse_click"; exec "rcon clientkick 17"; }
+		}
+		itemDef
+		{
+			name      playerk18
+			text      "18"
+			type			1
+		  style			WINDOW_STYLE_FILLED
+		  textstyle		ITEM_TEXTSTYLE_SHADOWED
+			rect			270 170 15 15 HORIZONTAL_ALIGN_DEFAULT VERTICAL_ALIGN_DEFAULT
+		  textalign		ITEM_ALIGN_LEFT
+		  textfont		CHOICE_TEXTFONT
+		  textscale		TEXTSIZE_SMALL
+		  textaligny		15
+			forecolor		.9 .9 .95 1
+			visible			1
+		  mouseEnter { play "mouse_over"; } 
+		  action { play "mouse_click"; exec "rcon clientkick 18"; }
+		}
+		itemDef
+		{
+			name      playerk19
+			text      "19"
+			type			1
+		  style			WINDOW_STYLE_FILLED
+		  textstyle		ITEM_TEXTSTYLE_SHADOWED
+			rect			270 185 15 15 HORIZONTAL_ALIGN_DEFAULT VERTICAL_ALIGN_DEFAULT
+		  textalign		ITEM_ALIGN_LEFT
+		  textfont		CHOICE_TEXTFONT
+		  textscale		TEXTSIZE_SMALL
+		  textaligny		15
+			forecolor		.9 .9 .95 1
+			visible			1
+		  mouseEnter { play "mouse_over"; } 
+		  action { play "mouse_click"; exec "rcon clientkick 19"; }
+		}
+		itemDef
+		{
+			name      playerk20
+			text      "20"
+			type			1
+		  style			WINDOW_STYLE_FILLED
+		  textstyle		ITEM_TEXTSTYLE_SHADOWED
+			rect			270 200 15 15 HORIZONTAL_ALIGN_DEFAULT VERTICAL_ALIGN_DEFAULT
+		  textalign		ITEM_ALIGN_LEFT
+		  textfont		CHOICE_TEXTFONT
+		  textscale		TEXTSIZE_SMALL
+		  textaligny		15
+			forecolor		.9 .9 .95 1
+			visible			1
+		  mouseEnter { play "mouse_over"; } 
+		  action { play "mouse_click"; exec "rcon clientkick 20"; }
+		}
+		itemDef
+		{
+			name      playerk21
+			text      "21"
+			type			1
+		  style			WINDOW_STYLE_FILLED
+		  textstyle		ITEM_TEXTSTYLE_SHADOWED
+			rect			270 215 15 15 HORIZONTAL_ALIGN_DEFAULT VERTICAL_ALIGN_DEFAULT
+		  textalign		ITEM_ALIGN_LEFT
+		  textfont		CHOICE_TEXTFONT
+		  textscale		TEXTSIZE_SMALL
+		  textaligny		15
+			forecolor		.9 .9 .95 1
+			visible			1
+		  mouseEnter { play "mouse_over"; } 
+		  action { play "mouse_click"; exec "rcon clientkick 21"; }
+		}
+		itemDef
+		{
+			name      playerk22
+			text      "22"
+			type			1
+		  style			WINDOW_STYLE_FILLED
+		  textstyle		ITEM_TEXTSTYLE_SHADOWED
+			rect			270 230 15 15 HORIZONTAL_ALIGN_DEFAULT VERTICAL_ALIGN_DEFAULT
+		  textalign		ITEM_ALIGN_LEFT
+		  textfont		CHOICE_TEXTFONT
+		  textscale		TEXTSIZE_SMALL
+		  textaligny		15
+			forecolor		.9 .9 .95 1
+			visible			1
+		  mouseEnter { play "mouse_over"; } 
+		  action { play "mouse_click"; exec "rcon clientkick 22"; }
+		}
+		itemDef
+		{
+			name      playerk23
+			text      "23"
+			type			1
+		  style			WINDOW_STYLE_FILLED
+		  textstyle		ITEM_TEXTSTYLE_SHADOWED
+			rect			270 245 15 15 HORIZONTAL_ALIGN_DEFAULT VERTICAL_ALIGN_DEFAULT
+		  textalign		ITEM_ALIGN_LEFT
+		  textfont		CHOICE_TEXTFONT
+		  textscale		TEXTSIZE_SMALL
+		  textaligny		15
+			forecolor		.9 .9 .95 1
+			visible			1
+		  mouseEnter { play "mouse_over"; } 
+		  action { play "mouse_click"; exec "rcon clientkick 23"; }
+		}
+// 4th col
+		itemDef
+		{
+			name      playerk24
+			text      "24"
+			type			1
+		  style			WINDOW_STYLE_FILLED
+		  textstyle		ITEM_TEXTSTYLE_SHADOWED
+			rect			290 140 15 15 HORIZONTAL_ALIGN_DEFAULT VERTICAL_ALIGN_DEFAULT
+		  textalign		ITEM_ALIGN_LEFT
+		  textfont		CHOICE_TEXTFONT
+		  textscale		TEXTSIZE_SMALL
+		  textaligny		15
+			forecolor		.9 .9 .95 1
+			visible			1
+		  mouseEnter { play "mouse_over"; } 
+		  action { play "mouse_click"; exec "rcon clientkick 24"; }
+		}
+		itemDef
+		{
+			name      playerk25
+			text      "25"
+			type			1
+		  style			WINDOW_STYLE_FILLED
+		  textstyle		ITEM_TEXTSTYLE_SHADOWED
+			rect			290 155 15 15 HORIZONTAL_ALIGN_DEFAULT VERTICAL_ALIGN_DEFAULT
+		  textalign		ITEM_ALIGN_LEFT
+		  textfont		CHOICE_TEXTFONT
+		  textscale		TEXTSIZE_SMALL
+		  textaligny		15
+			forecolor		.9 .9 .95 1
+			visible			1
+		  mouseEnter { play "mouse_over"; } 
+		  action { play "mouse_click"; exec "rcon clientkick 25"; }
+		}
+		itemDef
+		{
+			name      playerk26
+			text      "26"
+			type			1
+		  style			WINDOW_STYLE_FILLED
+		  textstyle		ITEM_TEXTSTYLE_SHADOWED
+			rect			290 170 15 15 HORIZONTAL_ALIGN_DEFAULT VERTICAL_ALIGN_DEFAULT
+		  textalign		ITEM_ALIGN_LEFT
+		  textfont		CHOICE_TEXTFONT
+		  textscale		TEXTSIZE_SMALL
+		  textaligny		15
+			forecolor		.9 .9 .95 1
+			visible			1
+		  mouseEnter { play "mouse_over"; } 
+		  action { play "mouse_click"; exec "rcon clientkick 26"; }
+		}
+		itemDef
+		{
+			name      playerk27
+			text      "27"
+			type			1
+		  style			WINDOW_STYLE_FILLED
+		  textstyle		ITEM_TEXTSTYLE_SHADOWED
+			rect			290 185 15 15 HORIZONTAL_ALIGN_DEFAULT VERTICAL_ALIGN_DEFAULT
+		  textalign		ITEM_ALIGN_LEFT
+		  textfont		CHOICE_TEXTFONT
+		  textscale		TEXTSIZE_SMALL
+		  textaligny		15
+			forecolor		.9 .9 .95 1
+			visible			1
+		  mouseEnter { play "mouse_over"; } 
+		  action { play "mouse_click"; exec "rcon clientkick 27"; }
+		}
+		itemDef
+		{
+			name      playerk28
+			text      "28"
+			type			1
+		  style			WINDOW_STYLE_FILLED
+		  textstyle		ITEM_TEXTSTYLE_SHADOWED
+			rect			290 200 15 15 HORIZONTAL_ALIGN_DEFAULT VERTICAL_ALIGN_DEFAULT
+		  textalign		ITEM_ALIGN_LEFT
+		  textfont		CHOICE_TEXTFONT
+		  textscale		TEXTSIZE_SMALL
+		  textaligny		15
+			forecolor		.9 .9 .95 1
+			visible			1
+		  mouseEnter { play "mouse_over"; } 
+		  action { play "mouse_click"; exec "rcon clientkick 28"; }
+		}
+		itemDef
+		{
+			name      playerk29
+			text      "29"
+			type			1
+		  style			WINDOW_STYLE_FILLED
+		  textstyle		ITEM_TEXTSTYLE_SHADOWED
+			rect			290 215 15 15 HORIZONTAL_ALIGN_DEFAULT VERTICAL_ALIGN_DEFAULT
+		  textalign		ITEM_ALIGN_LEFT
+		  textfont		CHOICE_TEXTFONT
+		  textscale		TEXTSIZE_SMALL
+		  textaligny		15
+			forecolor		.9 .9 .95 1
+			visible			1
+		  mouseEnter { play "mouse_over"; } 
+		  action { play "mouse_click"; exec "rcon clientkick 29"; }
+		}
+		itemDef
+		{
+			name      playerk30
+			text      "30"
+			type			1
+		  style			WINDOW_STYLE_FILLED
+		  textstyle		ITEM_TEXTSTYLE_SHADOWED
+			rect			290 230 15 15 HORIZONTAL_ALIGN_DEFAULT VERTICAL_ALIGN_DEFAULT
+		  textalign		ITEM_ALIGN_LEFT
+		  textfont		CHOICE_TEXTFONT
+		  textscale		TEXTSIZE_SMALL
+		  textaligny		15
+			forecolor		.9 .9 .95 1
+			visible			1
+		  mouseEnter { play "mouse_over"; } 
+		  action { play "mouse_click"; exec "rcon clientkick 30"; }
+		}
+		itemDef
+		{
+			name      playerk31
+			text      "31"
+			type			1
+		  style			WINDOW_STYLE_FILLED
+		  textstyle		ITEM_TEXTSTYLE_SHADOWED
+			rect			290 245 15 15 HORIZONTAL_ALIGN_DEFAULT VERTICAL_ALIGN_DEFAULT
+		  textalign		ITEM_ALIGN_LEFT
+		  textfont		CHOICE_TEXTFONT
+		  textscale		TEXTSIZE_SMALL
+		  textaligny		15
+			forecolor		.9 .9 .95 1
+			visible			1
+		  mouseEnter { play "mouse_over"; } 
+		  action { play "mouse_click"; exec "rcon clientkick 31"; }
+		}
+// 5th col
+		itemDef
+		{
+			name      playerk32
+			text      "32"
+			type			1
+		  style			WINDOW_STYLE_FILLED
+		  textstyle		ITEM_TEXTSTYLE_SHADOWED
+			rect			310 140 15 15 HORIZONTAL_ALIGN_DEFAULT VERTICAL_ALIGN_DEFAULT
+		  textalign		ITEM_ALIGN_LEFT
+		  textfont		CHOICE_TEXTFONT
+		  textscale		TEXTSIZE_SMALL
+		  textaligny		15
+			forecolor		.9 .9 .95 1
+			visible			1
+		  mouseEnter { play "mouse_over"; } 
+		  action { play "mouse_click"; exec "rcon clientkick 32"; }
+		}
+		itemDef
+		{
+			name      playerk33
+			text      "33"
+			type			1
+		  style			WINDOW_STYLE_FILLED
+		  textstyle		ITEM_TEXTSTYLE_SHADOWED
+			rect			310 155 15 15 HORIZONTAL_ALIGN_DEFAULT VERTICAL_ALIGN_DEFAULT
+		  textalign		ITEM_ALIGN_LEFT
+		  textfont		CHOICE_TEXTFONT
+		  textscale		TEXTSIZE_SMALL
+		  textaligny		15
+			forecolor		.9 .9 .95 1
+			visible			1
+		  mouseEnter { play "mouse_over"; } 
+		  action { play "mouse_click"; exec "rcon clientkick 33"; }
+		}
+		itemDef
+		{
+			name      playerk34
+			text      "34"
+			type			1
+		  style			WINDOW_STYLE_FILLED
+		  textstyle		ITEM_TEXTSTYLE_SHADOWED
+			rect			310 170 15 15 HORIZONTAL_ALIGN_DEFAULT VERTICAL_ALIGN_DEFAULT
+		  textalign		ITEM_ALIGN_LEFT
+		  textfont		CHOICE_TEXTFONT
+		  textscale		TEXTSIZE_SMALL
+		  textaligny		15
+			forecolor		.9 .9 .95 1
+			visible			1
+		  mouseEnter { play "mouse_over"; } 
+		  action { play "mouse_click"; exec "rcon clientkick 34"; }
+		}
+		itemDef
+		{
+			name      playerk35
+			text      "35"
+			type			1
+		  style			WINDOW_STYLE_FILLED
+		  textstyle		ITEM_TEXTSTYLE_SHADOWED
+			rect			310 185 15 15 HORIZONTAL_ALIGN_DEFAULT VERTICAL_ALIGN_DEFAULT
+		  textalign		ITEM_ALIGN_LEFT
+		  textfont		CHOICE_TEXTFONT
+		  textscale		TEXTSIZE_SMALL
+		  textaligny		15
+			forecolor		.9 .9 .95 1
+			visible			1
+		  mouseEnter { play "mouse_over"; } 
+		  action { play "mouse_click"; exec "rcon clientkick 35"; }
+		}
+		itemDef
+		{
+			name      playerk36
+			text      "36"
+			type			1
+		  style			WINDOW_STYLE_FILLED
+		  textstyle		ITEM_TEXTSTYLE_SHADOWED
+			rect			310 200 15 15 HORIZONTAL_ALIGN_DEFAULT VERTICAL_ALIGN_DEFAULT
+		  textalign		ITEM_ALIGN_LEFT
+		  textfont		CHOICE_TEXTFONT
+		  textscale		TEXTSIZE_SMALL
+		  textaligny		15
+			forecolor		.9 .9 .95 1
+			visible			1
+		  mouseEnter { play "mouse_over"; } 
+		  action { play "mouse_click"; exec "rcon clientkick 36"; }
+		}
+		itemDef
+		{
+			name      playerk37
+			text      "37"
+			type			1
+		  style			WINDOW_STYLE_FILLED
+		  textstyle		ITEM_TEXTSTYLE_SHADOWED
+			rect			310 215 15 15 HORIZONTAL_ALIGN_DEFAULT VERTICAL_ALIGN_DEFAULT
+		  textalign		ITEM_ALIGN_LEFT
+		  textfont		CHOICE_TEXTFONT
+		  textscale		TEXTSIZE_SMALL
+		  textaligny		15
+			forecolor		.9 .9 .95 1
+			visible			1
+		  mouseEnter { play "mouse_over"; } 
+		  action { play "mouse_click"; exec "rcon clientkick 37"; }
+		}
+		itemDef
+		{
+			name      playerk38
+			text      "38"
+			type			1
+		  style			WINDOW_STYLE_FILLED
+		  textstyle		ITEM_TEXTSTYLE_SHADOWED
+			rect			310 230 15 15 HORIZONTAL_ALIGN_DEFAULT VERTICAL_ALIGN_DEFAULT
+		  textalign		ITEM_ALIGN_LEFT
+		  textfont		CHOICE_TEXTFONT
+		  textscale		TEXTSIZE_SMALL
+		  textaligny		15
+			forecolor		.9 .9 .95 1
+			visible			1
+		  mouseEnter { play "mouse_over"; } 
+		  action { play "mouse_click"; exec "rcon clientkick 38"; }
+		}
+		itemDef
+		{
+			name      playerk39
+			text      "39"
+			type			1
+		  style			WINDOW_STYLE_FILLED
+		  textstyle		ITEM_TEXTSTYLE_SHADOWED
+			rect			310 245 15 15 HORIZONTAL_ALIGN_DEFAULT VERTICAL_ALIGN_DEFAULT
+		  textalign		ITEM_ALIGN_LEFT
+		  textfont		CHOICE_TEXTFONT
+		  textscale		TEXTSIZE_SMALL
+		  textaligny		15
+			forecolor		.9 .9 .95 1
+			visible			1
+		  mouseEnter { play "mouse_over"; } 
+		  action { play "mouse_click"; exec "rcon clientkick 39"; }
+		}
+
+//Ban Player
+//Title ban player
+		itemDef
+		{
+			type			ITEM_TYPE_TEXT
+			rect			372 125 80 0 HORIZONTAL_ALIGN_DEFAULT VERTICAL_ALIGN_DEFAULT
+			text      "@RC_RCON_BAN_PLAYER"
+			textfont		UI_FONT_NORMAL
+			textscale		.4
+			textstyle		ITEM_TEXTSTYLE_SHADOWED
+			textAlign		ITEM_ALIGN_MIDDLE_LEFT
+			forecolor		COLOR_FOCUSED
+			visible			1
+			decoration	
+		}
+// 1st col
+		itemDef
+		{
+			name      playerb0
+			text      " 0"
+			type			1
+		  style			WINDOW_STYLE_FILLED
+		  textstyle		ITEM_TEXTSTYLE_SHADOWED
+			rect			360 140 15 15 HORIZONTAL_ALIGN_DEFAULT VERTICAL_ALIGN_DEFAULT
+		  textalign		ITEM_ALIGN_LEFT
+		  textfont		CHOICE_TEXTFONT
+		  textscale		TEXTSIZE_SMALL
+		  textaligny		15
+			forecolor		.9 .9 .95 1
+			visible			1
+		  mouseEnter { play "mouse_over"; } 
+		  action { play "mouse_click"; exec "rcon banClient 0"; }
+		}
+		itemDef
+		{
+			name      playerb1
+			text      " 1"
+			type			1
+		  style			WINDOW_STYLE_FILLED
+		  textstyle		ITEM_TEXTSTYLE_SHADOWED
+			rect			360 155 15 15 HORIZONTAL_ALIGN_DEFAULT VERTICAL_ALIGN_DEFAULT
+		  textalign		ITEM_ALIGN_LEFT
+		  textfont		CHOICE_TEXTFONT
+		  textscale		TEXTSIZE_SMALL
+		  textaligny		15
+			forecolor		.9 .9 .95 1
+			visible			1
+		  mouseEnter { play "mouse_over"; } 
+		  action { play "mouse_click"; exec "rcon banClient 1"; }
+		}
+		itemDef
+		{
+			name      playerb2
+			text      " 2"
+			type			1
+		  style			WINDOW_STYLE_FILLED
+		  textstyle		ITEM_TEXTSTYLE_SHADOWED
+			rect			360 170 15 15 HORIZONTAL_ALIGN_DEFAULT VERTICAL_ALIGN_DEFAULT
+		  textalign		ITEM_ALIGN_LEFT
+		  textfont		CHOICE_TEXTFONT
+		  textscale		TEXTSIZE_SMALL
+		  textaligny		15
+			forecolor		.9 .9 .95 1
+			visible			1
+		  mouseEnter { play "mouse_over"; } 
+		  action { play "mouse_click"; exec "rcon banClient 2"; }
+		}
+		itemDef
+		{
+			name      playerb3
+			text      " 3"
+			type			1
+		  style			WINDOW_STYLE_FILLED
+		  textstyle		ITEM_TEXTSTYLE_SHADOWED
+			rect			360 185 15 15 HORIZONTAL_ALIGN_DEFAULT VERTICAL_ALIGN_DEFAULT
+		  textalign		ITEM_ALIGN_LEFT
+		  textfont		CHOICE_TEXTFONT
+		  textscale		TEXTSIZE_SMALL
+		  textaligny		15
+			forecolor		.9 .9 .95 1
+			visible			1
+		  mouseEnter { play "mouse_over"; } 
+		  action { play "mouse_click"; exec "rcon banClient 3"; }
+		}
+		itemDef
+		{
+			name      playerb4
+			text      " 4"
+			type			1
+		  style			WINDOW_STYLE_FILLED
+		  textstyle		ITEM_TEXTSTYLE_SHADOWED
+			rect			360 200 15 15 HORIZONTAL_ALIGN_DEFAULT VERTICAL_ALIGN_DEFAULT
+		  textalign		ITEM_ALIGN_LEFT
+		  textfont		CHOICE_TEXTFONT
+		  textscale		TEXTSIZE_SMALL
+		  textaligny		15
+			forecolor		.9 .9 .95 1
+			visible			1
+		  mouseEnter { play "mouse_over"; } 
+		  action { play "mouse_click"; exec "rcon banClient 4"; }
+		}
+		itemDef
+		{
+			name      playerb5
+			text      " 5"
+			type			1
+		  style			WINDOW_STYLE_FILLED
+		  textstyle		ITEM_TEXTSTYLE_SHADOWED
+			rect			360 215 15 15 HORIZONTAL_ALIGN_DEFAULT VERTICAL_ALIGN_DEFAULT
+		  textalign		ITEM_ALIGN_LEFT
+		  textfont		CHOICE_TEXTFONT
+		  textscale		TEXTSIZE_SMALL
+		  textaligny		15
+			forecolor		.9 .9 .95 1
+			visible			1
+		  mouseEnter { play "mouse_over"; } 
+		  action { play "mouse_click"; exec "rcon banClient 5"; }
+		}
+		itemDef
+		{
+			name      playerb6
+			text      " 6"
+			type			1
+		  style			WINDOW_STYLE_FILLED
+		  textstyle		ITEM_TEXTSTYLE_SHADOWED
+			rect			360 230 15 15 HORIZONTAL_ALIGN_DEFAULT VERTICAL_ALIGN_DEFAULT
+		  textalign		ITEM_ALIGN_LEFT
+		  textfont		CHOICE_TEXTFONT
+		  textscale		TEXTSIZE_SMALL
+		  textaligny		15
+			forecolor		.9 .9 .95 1
+			visible			1
+		  mouseEnter { play "mouse_over"; } 
+		  action { play "mouse_click"; exec "rcon banClient 6"; }
+		}
+		itemDef
+		{
+			name      playerb7
+			text      " 7"
+			type			1
+		  style			WINDOW_STYLE_FILLED
+		  textstyle		ITEM_TEXTSTYLE_SHADOWED
+			rect			360 245 15 15 HORIZONTAL_ALIGN_DEFAULT VERTICAL_ALIGN_DEFAULT
+		  textalign		ITEM_ALIGN_LEFT
+		  textfont		CHOICE_TEXTFONT
+		  textscale		TEXTSIZE_SMALL
+		  textaligny		15
+			forecolor		.9 .9 .95 1
+			visible			1
+		  mouseEnter { play "mouse_over"; } 
+		  action { play "mouse_click"; exec "rcon banClient 7"; }
+		}
+// 2nd col
+		itemDef
+		{
+			name      playerb8
+			text      " 8"
+			type			1
+		  style			WINDOW_STYLE_FILLED
+		  textstyle		ITEM_TEXTSTYLE_SHADOWED
+			rect			375 140 15 15 HORIZONTAL_ALIGN_DEFAULT VERTICAL_ALIGN_DEFAULT
+		  textalign		ITEM_ALIGN_LEFT
+		  textfont		CHOICE_TEXTFONT
+		  textscale		TEXTSIZE_SMALL
+		  textaligny		15
+			forecolor		.9 .9 .95 1
+			visible			1
+		  mouseEnter { play "mouse_over"; } 
+		  action { play "mouse_click"; exec "rcon banClient 8"; }
+		}
+		itemDef
+		{
+			name      playerb9
+			text      " 9"
+			type			1
+		  style			WINDOW_STYLE_FILLED
+		  textstyle		ITEM_TEXTSTYLE_SHADOWED
+			rect			375 155 15 15 HORIZONTAL_ALIGN_DEFAULT VERTICAL_ALIGN_DEFAULT
+		  textalign		ITEM_ALIGN_LEFT
+		  textfont		CHOICE_TEXTFONT
+		  textscale		TEXTSIZE_SMALL
+		  textaligny		15
+			forecolor		.9 .9 .95 1
+			visible			1
+		  mouseEnter { play "mouse_over"; } 
+		  action { play "mouse_click"; exec "rcon banClient 9"; }
+		}
+		itemDef
+		{
+			name      playerb10
+			text      "10"
+			type			1
+		  style			WINDOW_STYLE_FILLED
+		  textstyle		ITEM_TEXTSTYLE_SHADOWED
+			rect			375 170 15 15 HORIZONTAL_ALIGN_DEFAULT VERTICAL_ALIGN_DEFAULT
+		  textalign		ITEM_ALIGN_LEFT
+		  textfont		CHOICE_TEXTFONT
+		  textscale		TEXTSIZE_SMALL
+		  textaligny		15
+			forecolor		.9 .9 .95 1
+			visible			1
+		  mouseEnter { play "mouse_over"; } 
+		  action { play "mouse_click"; exec "rcon banClient 10"; }
+		}
+		itemDef
+		{
+			name      playerb11
+			text      "11"
+			type			1
+		  style			WINDOW_STYLE_FILLED
+		  textstyle		ITEM_TEXTSTYLE_SHADOWED
+			rect			375 185 15 15 HORIZONTAL_ALIGN_DEFAULT VERTICAL_ALIGN_DEFAULT
+		  textalign		ITEM_ALIGN_LEFT
+		  textfont		CHOICE_TEXTFONT
+		  textscale		TEXTSIZE_SMALL
+		  textaligny		15
+			forecolor		.9 .9 .95 1
+			visible			1
+		  mouseEnter { play "mouse_over"; } 
+		  action { play "mouse_click"; exec "rcon banClient 11"; }
+		}
+		itemDef
+		{
+			name      playerb12
+			text      "12"
+			type			1
+		  style			WINDOW_STYLE_FILLED
+		  textstyle		ITEM_TEXTSTYLE_SHADOWED
+			rect			375 200 15 15 HORIZONTAL_ALIGN_DEFAULT VERTICAL_ALIGN_DEFAULT
+		  textalign		ITEM_ALIGN_LEFT
+		  textfont		CHOICE_TEXTFONT
+		  textscale		TEXTSIZE_SMALL
+		  textaligny		15
+			forecolor		.9 .9 .95 1
+			visible			1
+		  mouseEnter { play "mouse_over"; } 
+		  action { play "mouse_click"; exec "rcon banClient 12"; }
+		}
+		itemDef
+		{
+			name      playerb13
+			text      "13"
+			type			1
+		  style			WINDOW_STYLE_FILLED
+		  textstyle		ITEM_TEXTSTYLE_SHADOWED
+			rect			375 215 15 15 HORIZONTAL_ALIGN_DEFAULT VERTICAL_ALIGN_DEFAULT
+		  textalign		ITEM_ALIGN_LEFT
+		  textfont		CHOICE_TEXTFONT
+		  textscale		TEXTSIZE_SMALL
+		  textaligny		15
+			forecolor		.9 .9 .95 1
+			visible			1
+		  mouseEnter { play "mouse_over"; } 
+		  action { play "mouse_click"; exec "rcon banClient 13"; }
+		}
+		itemDef
+		{
+			name      playerb14
+			text      "14"
+			type			1
+		  style			WINDOW_STYLE_FILLED
+		  textstyle		ITEM_TEXTSTYLE_SHADOWED
+			rect			375 230 15 15 HORIZONTAL_ALIGN_DEFAULT VERTICAL_ALIGN_DEFAULT
+		  textalign		ITEM_ALIGN_LEFT
+		  textfont		CHOICE_TEXTFONT
+		  textscale		TEXTSIZE_SMALL
+		  textaligny		15
+			forecolor		.9 .9 .95 1
+			visible			1
+		  mouseEnter { play "mouse_over"; } 
+		  action { play "mouse_click"; exec "rcon banClient 14"; }
+		}
+		itemDef
+		{
+			name      playerb15
+			text      "15"
+			type			1
+		  style			WINDOW_STYLE_FILLED
+		  textstyle		ITEM_TEXTSTYLE_SHADOWED
+			rect			375 245 15 15 HORIZONTAL_ALIGN_DEFAULT VERTICAL_ALIGN_DEFAULT
+		  textalign		ITEM_ALIGN_LEFT
+		  textfont		CHOICE_TEXTFONT
+		  textscale		TEXTSIZE_SMALL
+		  textaligny		15
+			forecolor		.9 .9 .95 1
+			visible			1
+		  mouseEnter { play "mouse_over"; } 
+		  action { play "mouse_click"; exec "rcon banClient 15"; }
+		}
+// 3rd col
+		itemDef
+		{
+			name      playerb16
+			text      "16"
+			type			1
+		  style			WINDOW_STYLE_FILLED
+		  textstyle		ITEM_TEXTSTYLE_SHADOWED
+			rect			395 140 15 15 HORIZONTAL_ALIGN_DEFAULT VERTICAL_ALIGN_DEFAULT
+		  textalign		ITEM_ALIGN_LEFT
+		  textfont		CHOICE_TEXTFONT
+		  textscale		TEXTSIZE_SMALL
+		  textaligny		15
+			forecolor		.9 .9 .95 1
+			visible			1
+		  mouseEnter { play "mouse_over"; } 
+		  action { play "mouse_click"; exec "rcon banClient 16"; }
+		}
+		itemDef
+		{
+			name      playerb17
+			text      "17"
+			type			1
+		  style			WINDOW_STYLE_FILLED
+		  textstyle		ITEM_TEXTSTYLE_SHADOWED
+			rect			395 155 15 15 HORIZONTAL_ALIGN_DEFAULT VERTICAL_ALIGN_DEFAULT
+		  textalign		ITEM_ALIGN_LEFT
+		  textfont		CHOICE_TEXTFONT
+		  textscale		TEXTSIZE_SMALL
+		  textaligny		15
+			forecolor		.9 .9 .95 1
+			visible			1
+		  mouseEnter { play "mouse_over"; } 
+		  action { play "mouse_click"; exec "rcon banClient 17"; }
+		}
+		itemDef
+		{
+			name      playerb18
+			text      "18"
+			type			1
+		  style			WINDOW_STYLE_FILLED
+		  textstyle		ITEM_TEXTSTYLE_SHADOWED
+			rect			395 170 15 15 HORIZONTAL_ALIGN_DEFAULT VERTICAL_ALIGN_DEFAULT
+		  textalign		ITEM_ALIGN_LEFT
+		  textfont		CHOICE_TEXTFONT
+		  textscale		TEXTSIZE_SMALL
+		  textaligny		15
+			forecolor		.9 .9 .95 1
+			visible			1
+		  mouseEnter { play "mouse_over"; } 
+		  action { play "mouse_click"; exec "rcon banClient 18"; }
+		}
+		itemDef
+		{
+			name      playerb19
+			text      "19"
+			type			1
+		  style			WINDOW_STYLE_FILLED
+		  textstyle		ITEM_TEXTSTYLE_SHADOWED
+			rect			395 185 15 15 HORIZONTAL_ALIGN_DEFAULT VERTICAL_ALIGN_DEFAULT
+		  textalign		ITEM_ALIGN_LEFT
+		  textfont		CHOICE_TEXTFONT
+		  textscale		TEXTSIZE_SMALL
+		  textaligny		15
+			forecolor		.9 .9 .95 1
+			visible			1
+		  mouseEnter { play "mouse_over"; } 
+		  action { play "mouse_click"; exec "rcon banClient 19"; }
+		}
+		itemDef
+		{
+			name      playerb20
+			text      "20"
+			type			1
+		  style			WINDOW_STYLE_FILLED
+		  textstyle		ITEM_TEXTSTYLE_SHADOWED
+			rect			395 200 15 15 HORIZONTAL_ALIGN_DEFAULT VERTICAL_ALIGN_DEFAULT
+		  textalign		ITEM_ALIGN_LEFT
+		  textfont		CHOICE_TEXTFONT
+		  textscale		TEXTSIZE_SMALL
+		  textaligny		15
+			forecolor		.9 .9 .95 1
+			visible			1
+		  mouseEnter { play "mouse_over"; } 
+		  action { play "mouse_click"; exec "rcon banClient 20"; }
+		}
+		itemDef
+		{
+			name      playerb21
+			text      "21"
+			type			1
+		  style			WINDOW_STYLE_FILLED
+		  textstyle		ITEM_TEXTSTYLE_SHADOWED
+			rect			395 215 15 15 HORIZONTAL_ALIGN_DEFAULT VERTICAL_ALIGN_DEFAULT
+		  textalign		ITEM_ALIGN_LEFT
+		  textfont		CHOICE_TEXTFONT
+		  textscale		TEXTSIZE_SMALL
+		  textaligny		15
+			forecolor		.9 .9 .95 1
+			visible			1
+		  mouseEnter { play "mouse_over"; } 
+		  action { play "mouse_click"; exec "rcon banClient 21"; }
+		}
+		itemDef
+		{
+			name      playerb22
+			text      "22"
+			type			1
+		  style			WINDOW_STYLE_FILLED
+		  textstyle		ITEM_TEXTSTYLE_SHADOWED
+			rect			395 230 15 15 HORIZONTAL_ALIGN_DEFAULT VERTICAL_ALIGN_DEFAULT
+		  textalign		ITEM_ALIGN_LEFT
+		  textfont		CHOICE_TEXTFONT
+		  textscale		TEXTSIZE_SMALL
+		  textaligny		15
+			forecolor		.9 .9 .95 1
+			visible			1
+		  mouseEnter { play "mouse_over"; } 
+		  action { play "mouse_click"; exec "rcon banClient 22"; }
+		}
+		itemDef
+		{
+			name      playerb23
+			text      "23"
+			type			1
+		  style			WINDOW_STYLE_FILLED
+		  textstyle		ITEM_TEXTSTYLE_SHADOWED
+			rect			395 245 15 15 HORIZONTAL_ALIGN_DEFAULT VERTICAL_ALIGN_DEFAULT
+		  textalign		ITEM_ALIGN_LEFT
+		  textfont		CHOICE_TEXTFONT
+		  textscale		TEXTSIZE_SMALL
+		  textaligny		15
+			forecolor		.9 .9 .95 1
+			visible			1
+		  mouseEnter { play "mouse_over"; } 
+		  action { play "mouse_click"; exec "rcon banClient 23"; }
+		}
+// 4th col
+		itemDef
+		{
+			name      playerb24
+			text      "24"
+			type			1
+		  style			WINDOW_STYLE_FILLED
+		  textstyle		ITEM_TEXTSTYLE_SHADOWED
+			rect			415 140 15 15 HORIZONTAL_ALIGN_DEFAULT VERTICAL_ALIGN_DEFAULT
+		  textalign		ITEM_ALIGN_LEFT
+		  textfont		CHOICE_TEXTFONT
+		  textscale		TEXTSIZE_SMALL
+		  textaligny		15
+			forecolor		.9 .9 .95 1
+			visible			1
+		  mouseEnter { play "mouse_over"; } 
+		  action { play "mouse_click"; exec "rcon banClient 24"; }
+		}
+		itemDef
+		{
+			name      playerb25
+			text      "25"
+			type			1
+		  style			WINDOW_STYLE_FILLED
+		  textstyle		ITEM_TEXTSTYLE_SHADOWED
+			rect			415 155 15 15 HORIZONTAL_ALIGN_DEFAULT VERTICAL_ALIGN_DEFAULT
+		  textalign		ITEM_ALIGN_LEFT
+		  textfont		CHOICE_TEXTFONT
+		  textscale		TEXTSIZE_SMALL
+		  textaligny		15
+			forecolor		.9 .9 .95 1
+			visible			1
+		  mouseEnter { play "mouse_over"; } 
+		  action { play "mouse_click"; exec "rcon banClient 25"; }
+		}
+		itemDef
+		{
+			name      playerb26
+			text      "26"
+			type			1
+		  style			WINDOW_STYLE_FILLED
+		  textstyle		ITEM_TEXTSTYLE_SHADOWED
+			rect			415 170 15 15 HORIZONTAL_ALIGN_DEFAULT VERTICAL_ALIGN_DEFAULT
+		  textalign		ITEM_ALIGN_LEFT
+		  textfont		CHOICE_TEXTFONT
+		  textscale		TEXTSIZE_SMALL
+		  textaligny		15
+			forecolor		.9 .9 .95 1
+			visible			1
+		  mouseEnter { play "mouse_over"; } 
+		  action { play "mouse_click"; exec "rcon banClient 26"; }
+		}
+		itemDef
+		{
+			name      playerb27
+			text      "27"
+			type			1
+		  style			WINDOW_STYLE_FILLED
+		  textstyle		ITEM_TEXTSTYLE_SHADOWED
+			rect			415 185 15 15 HORIZONTAL_ALIGN_DEFAULT VERTICAL_ALIGN_DEFAULT
+		  textalign		ITEM_ALIGN_LEFT
+		  textfont		CHOICE_TEXTFONT
+		  textscale		TEXTSIZE_SMALL
+		  textaligny		15
+			forecolor		.9 .9 .95 1
+			visible			1
+		  mouseEnter { play "mouse_over"; } 
+		  action { play "mouse_click"; exec "rcon banClient 27"; }
+		}
+		itemDef
+		{
+			name      playerb28
+			text      "28"
+			type			1
+		  style			WINDOW_STYLE_FILLED
+		  textstyle		ITEM_TEXTSTYLE_SHADOWED
+			rect			415 200 15 15 HORIZONTAL_ALIGN_DEFAULT VERTICAL_ALIGN_DEFAULT
+		  textalign		ITEM_ALIGN_LEFT
+		  textfont		CHOICE_TEXTFONT
+		  textscale		TEXTSIZE_SMALL
+		  textaligny		15
+			forecolor		.9 .9 .95 1
+			visible			1
+		  mouseEnter { play "mouse_over"; } 
+		  action { play "mouse_click"; exec "rcon banClient 28"; }
+		}
+		itemDef
+		{
+			name      playerb29
+			text      "29"
+			type			1
+		  style			WINDOW_STYLE_FILLED
+		  textstyle		ITEM_TEXTSTYLE_SHADOWED
+			rect			415 215 15 15 HORIZONTAL_ALIGN_DEFAULT VERTICAL_ALIGN_DEFAULT
+		  textalign		ITEM_ALIGN_LEFT
+		  textfont		CHOICE_TEXTFONT
+		  textscale		TEXTSIZE_SMALL
+		  textaligny		15
+			forecolor		.9 .9 .95 1
+			visible			1
+		  mouseEnter { play "mouse_over"; } 
+		  action { play "mouse_click"; exec "rcon banClient 29"; }
+		}
+		itemDef
+		{
+			name      playerb30
+			text      "30"
+			type			1
+		  style			WINDOW_STYLE_FILLED
+		  textstyle		ITEM_TEXTSTYLE_SHADOWED
+			rect			415 230 15 15 HORIZONTAL_ALIGN_DEFAULT VERTICAL_ALIGN_DEFAULT
+		  textalign		ITEM_ALIGN_LEFT
+		  textfont		CHOICE_TEXTFONT
+		  textscale		TEXTSIZE_SMALL
+		  textaligny		15
+			forecolor		.9 .9 .95 1
+			visible			1
+		  mouseEnter { play "mouse_over"; } 
+		  action { play "mouse_click"; exec "rcon banClient 30"; }
+		}
+		itemDef
+		{
+			name      playerb31
+			text      "31"
+			type			1
+		  style			WINDOW_STYLE_FILLED
+		  textstyle		ITEM_TEXTSTYLE_SHADOWED
+			rect			415 245 15 15 HORIZONTAL_ALIGN_DEFAULT VERTICAL_ALIGN_DEFAULT
+		  textalign		ITEM_ALIGN_LEFT
+		  textfont		CHOICE_TEXTFONT
+		  textscale		TEXTSIZE_SMALL
+		  textaligny		15
+			forecolor		.9 .9 .95 1
+			visible			1
+		  mouseEnter { play "mouse_over"; } 
+		  action { play "mouse_click"; exec "rcon banClient 31"; }
+		}
+// 5th col
+		itemDef
+		{
+			name      playerb32
+			text      "32"
+			type			1
+		  style			WINDOW_STYLE_FILLED
+		  textstyle		ITEM_TEXTSTYLE_SHADOWED
+			rect			435 140 15 15 HORIZONTAL_ALIGN_DEFAULT VERTICAL_ALIGN_DEFAULT
+		  textalign		ITEM_ALIGN_LEFT
+		  textfont		CHOICE_TEXTFONT
+		  textscale		TEXTSIZE_SMALL
+		  textaligny		15
+			forecolor		.9 .9 .95 1
+			visible			1
+		  mouseEnter { play "mouse_over"; } 
+		  action { play "mouse_click"; exec "rcon banClient 32"; }
+		}
+		itemDef
+		{
+			name      playerb33
+			text      "33"
+			type			1
+		  style			WINDOW_STYLE_FILLED
+		  textstyle		ITEM_TEXTSTYLE_SHADOWED
+			rect			435 155 15 15 HORIZONTAL_ALIGN_DEFAULT VERTICAL_ALIGN_DEFAULT
+		  textalign		ITEM_ALIGN_LEFT
+		  textfont		CHOICE_TEXTFONT
+		  textscale		TEXTSIZE_SMALL
+		  textaligny		15
+			forecolor		.9 .9 .95 1
+			visible			1
+		  mouseEnter { play "mouse_over"; } 
+		  action { play "mouse_click"; exec "rcon banClient 33"; }
+		}
+		itemDef
+		{
+			name      playerb34
+			text      "34"
+			type			1
+		  style			WINDOW_STYLE_FILLED
+		  textstyle		ITEM_TEXTSTYLE_SHADOWED
+			rect			435 170 15 15 HORIZONTAL_ALIGN_DEFAULT VERTICAL_ALIGN_DEFAULT
+		  textalign		ITEM_ALIGN_LEFT
+		  textfont		CHOICE_TEXTFONT
+		  textscale		TEXTSIZE_SMALL
+		  textaligny		15
+			forecolor		.9 .9 .95 1
+			visible			1
+		  mouseEnter { play "mouse_over"; } 
+		  action { play "mouse_click"; exec "rcon banClient 34"; }
+		}
+		itemDef
+		{
+			name      playerb35
+			text      "35"
+			type			1
+		  style			WINDOW_STYLE_FILLED
+		  textstyle		ITEM_TEXTSTYLE_SHADOWED
+			rect			435 185 15 15 HORIZONTAL_ALIGN_DEFAULT VERTICAL_ALIGN_DEFAULT
+		  textalign		ITEM_ALIGN_LEFT
+		  textfont		CHOICE_TEXTFONT
+		  textscale		TEXTSIZE_SMALL
+		  textaligny		15
+			forecolor		.9 .9 .95 1
+			visible			1
+		  mouseEnter { play "mouse_over"; } 
+		  action { play "mouse_click"; exec "rcon banClient 35"; }
+		}
+		itemDef
+		{
+			name      playerb36
+			text      "36"
+			type			1
+		  style			WINDOW_STYLE_FILLED
+		  textstyle		ITEM_TEXTSTYLE_SHADOWED
+			rect			435 200 15 15 HORIZONTAL_ALIGN_DEFAULT VERTICAL_ALIGN_DEFAULT
+		  textalign		ITEM_ALIGN_LEFT
+		  textfont		CHOICE_TEXTFONT
+		  textscale		TEXTSIZE_SMALL
+		  textaligny		15
+			forecolor		.9 .9 .95 1
+			visible			1
+		  mouseEnter { play "mouse_over"; } 
+		  action { play "mouse_click"; exec "rcon banClient 36"; }
+		}
+		itemDef
+		{
+			name      playerb37
+			text      "37"
+			type			1
+		  style			WINDOW_STYLE_FILLED
+		  textstyle		ITEM_TEXTSTYLE_SHADOWED
+			rect			435 215 15 15 HORIZONTAL_ALIGN_DEFAULT VERTICAL_ALIGN_DEFAULT
+		  textalign		ITEM_ALIGN_LEFT
+		  textfont		CHOICE_TEXTFONT
+		  textscale		TEXTSIZE_SMALL
+		  textaligny		15
+			forecolor		.9 .9 .95 1
+			visible			1
+		  mouseEnter { play "mouse_over"; } 
+		  action { play "mouse_click"; exec "rcon banClient 37"; }
+		}
+		itemDef
+		{
+			name      playerb38
+			text      "38"
+			type			1
+		  style			WINDOW_STYLE_FILLED
+		  textstyle		ITEM_TEXTSTYLE_SHADOWED
+			rect			435 230 15 15 HORIZONTAL_ALIGN_DEFAULT VERTICAL_ALIGN_DEFAULT
+		  textalign		ITEM_ALIGN_LEFT
+		  textfont		CHOICE_TEXTFONT
+		  textscale		TEXTSIZE_SMALL
+		  textaligny		15
+			forecolor		.9 .9 .95 1
+			visible			1
+		  mouseEnter { play "mouse_over"; } 
+		  action { play "mouse_click"; exec "rcon banClient 38"; }
+		}
+		itemDef
+		{
+			name      playerb39
+			text      "39"
+			type			1
+		  style			WINDOW_STYLE_FILLED
+		  textstyle		ITEM_TEXTSTYLE_SHADOWED
+			rect			435 245 15 15 HORIZONTAL_ALIGN_DEFAULT VERTICAL_ALIGN_DEFAULT
+		  textalign		ITEM_ALIGN_LEFT
+		  textfont		CHOICE_TEXTFONT
+		  textscale		TEXTSIZE_SMALL
+		  textaligny		15
+			forecolor		.9 .9 .95 1
+			visible			1
+		  mouseEnter { play "mouse_over"; } 
+		  action { play "mouse_click"; exec "rcon banClient 39"; }
+		}
+
+// Status
+		itemDef
+		{
+			name      status
+			text      "^2Status"
+			type			1
+		  style			WINDOW_STYLE_FILLED
+		  textstyle		ITEM_TEXTSTYLE_SHADOWED
+		  rect			387 264 80 15 HORIZONTAL_ALIGN_DEFAULT VERTICAL_ALIGN_DEFAULT
+		  textalign		ITEM_ALIGN_LEFT
+		  textfont		CHOICE_TEXTFONT
+		  textscale		TEXTSIZE_SMALL
+		  textaligny		15
+			forecolor		.9 .9 .95 1
+			visible			1
+		  mouseEnter { play "mouse_over"; } 
+		  action { play "mouse_click"; exec "rcon status"; }
+		}
+
+// Kick All Players
+
+		itemDef
+		{
+			name      kap
+			text      "^1Kick All Players"
+			type			1
+		  style			WINDOW_STYLE_FILLED
+		  textstyle		ITEM_TEXTSTYLE_SHADOWED
+		  rect			245 264 80 15 HORIZONTAL_ALIGN_DEFAULT VERTICAL_ALIGN_DEFAULT
+		  textalign		ITEM_ALIGN_LEFT
+		  textfont		CHOICE_TEXTFONT
+		  textscale		TEXTSIZE_SMALL
+		  textaligny		15
+			forecolor		.9 .9 .95 1
+			visible			1
+		  mouseEnter { play "mouse_over"; } 
+		  action { play "mouse_click"; exec "rcon kick all"; }
+		}
+		
+// Gametype
+// Title Gametype
+		itemDef
+		{
+			type			ITEM_TYPE_TEXT
+			rect			370 290 80 0 HORIZONTAL_ALIGN_DEFAULT VERTICAL_ALIGN_DEFAULT
+			text      "@RC_RCON_GAMETYPE"
+			textfont		UI_FONT_NORMAL
+			textscale		.4
+			textstyle		ITEM_TEXTSTYLE_SHADOWED
+			textAlign		ITEM_ALIGN_MIDDLE_LEFT
+			forecolor		COLOR_FOCUSED
+			visible			1
+			decoration	
+		}
+// Gametype	 
+		itemDef
+		{
+			name      ctfb
+			text      "CTFB"
+			type			1
+		  style			WINDOW_STYLE_FILLED
+		  textstyle		ITEM_TEXTSTYLE_SHADOWED
+		 rect			360 300 80 15 HORIZONTAL_ALIGN_DEFAULT VERTICAL_ALIGN_DEFAULT
+		  textalign		ITEM_ALIGN_CENTER
+		  textfont		CHOICE_TEXTFONT
+		  textscale		TEXTSIZE_SMALL
+		  textaligny		15
+			forecolor		.9 .9 .95 1
+			visible			1
+		  mouseEnter { play "mouse_over"; } 
+		  action { play "mouse_click"; exec "rcon g_gametype ctfb"; }	
+		}
+
+		itemDef
+		{
+			name      ctf
+			text      "CTF"
+			type			1
+		  style			WINDOW_STYLE_FILLED
+		  textstyle		ITEM_TEXTSTYLE_SHADOWED
+		  rect			360 315 80 15 HORIZONTAL_ALIGN_DEFAULT VERTICAL_ALIGN_DEFAULT
+		  textalign		ITEM_ALIGN_CENTER
+		  textfont		CHOICE_TEXTFONT
+		  textscale		TEXTSIZE_SMALL
+		  textaligny		15
+			forecolor		.9 .9 .95 1
+			visible			1
+		  mouseEnter { play "mouse_over"; } 
+		  action { play "mouse_click"; exec "rcon g_gametype ctf"; }
+		}
+		itemDef
+		{
+			name      dm
+			text      "DM"
+			type			1
+		  style			WINDOW_STYLE_FILLED
+		  textstyle		ITEM_TEXTSTYLE_SHADOWED
+		  rect			360 330 80 15 HORIZONTAL_ALIGN_DEFAULT VERTICAL_ALIGN_DEFAULT
+		  textalign		ITEM_ALIGN_CENTER
+		  textfont		CHOICE_TEXTFONT
+		  textscale		TEXTSIZE_SMALL
+		  textaligny		15
+			forecolor		.9 .9 .95 1
+			visible			1
+		  mouseEnter { play "mouse_over"; } 
+		  action { play "mouse_click"; exec "rcon g_gametype dm"; }
+		}
+		itemDef
+		{
+			name      dom
+			text      "DOM"
+			type			1
+		  style			WINDOW_STYLE_FILLED
+		  textstyle		ITEM_TEXTSTYLE_SHADOWED
+		  rect			360 345 80 15 HORIZONTAL_ALIGN_DEFAULT VERTICAL_ALIGN_DEFAULT
+		  textalign		ITEM_ALIGN_CENTER
+		  textfont		CHOICE_TEXTFONT
+		  textscale		TEXTSIZE_SMALL
+		  textaligny		15
+			forecolor		.9 .9 .95 1
+			visible			1
+		  mouseEnter { play "mouse_over"; } 
+		  action { play "mouse_click"; exec "rcon g_gametype dom"; }
+		}
+		itemDef
+		{
+			name      koth
+			text      "KOTH"
+			type			1
+		  style			WINDOW_STYLE_FILLED
+		  textstyle		ITEM_TEXTSTYLE_SHADOWED
+		  rect			360 360 80 15 HORIZONTAL_ALIGN_DEFAULT VERTICAL_ALIGN_DEFAULT
+		  textalign		ITEM_ALIGN_CENTER
+		  textfont		CHOICE_TEXTFONT
+		  textscale		TEXTSIZE_SMALL
+		  textaligny		15
+			forecolor		.9 .9 .95 1
+			visible			1
+		  mouseEnter { play "mouse_over"; } 
+		  action { play "mouse_click"; exec "rcon g_gametype koth"; }
+		}
+		itemDef
+		{
+			name      sab
+			text      "SAB"
+			type			1
+		  style			WINDOW_STYLE_FILLED
+		  textstyle		ITEM_TEXTSTYLE_SHADOWED
+		  rect			360 375 80 15 HORIZONTAL_ALIGN_DEFAULT VERTICAL_ALIGN_DEFAULT
+		  textalign		ITEM_ALIGN_CENTER
+		  textfont		CHOICE_TEXTFONT
+		  textscale		TEXTSIZE_SMALL
+		  textaligny		15
+			forecolor		.9 .9 .95 1
+			visible			1
+		  mouseEnter { play "mouse_over"; } 
+		  action { play "mouse_click"; exec "rcon g_gametype sab"; }
+		}
+		itemDef
+		{
+			name      sd
+			text			"SD"
+			type			1
+		  style			WINDOW_STYLE_FILLED
+		  textstyle		ITEM_TEXTSTYLE_SHADOWED
+		  rect			360 390 80 15 HORIZONTAL_ALIGN_DEFAULT VERTICAL_ALIGN_DEFAULT
+		  textalign		ITEM_ALIGN_CENTER
+		  textfont		CHOICE_TEXTFONT
+		  textscale		TEXTSIZE_SMALL
+		  textaligny		15
+			forecolor		.9 .9 .95 1
+			visible			1
+		  mouseEnter { play "mouse_over"; } 
+		  action { play "mouse_click"; exec "rcon g_gametype sd"; }
+		}
+		itemDef
+		{
+			name      war
+			text			"WAR"
+			type			1
+		  style			WINDOW_STYLE_FILLED
+		  textstyle		ITEM_TEXTSTYLE_SHADOWED
+		  rect			360 405 80 15 HORIZONTAL_ALIGN_DEFAULT VERTICAL_ALIGN_DEFAULT
+		  textalign		ITEM_ALIGN_CENTER
+		  textfont		CHOICE_TEXTFONT
+		  textscale		TEXTSIZE_SMALL
+		  textaligny		15
+			forecolor		.9 .9 .95 1
+			visible			1
+		  mouseEnter { play "mouse_over"; } 
+		  action { play "mouse_click"; exec "rcon g_gametype war"; }
+		}
+
+				itemDef
+		{
+			name      htf
+
+			text			"HTF"
+			type			1
+		  style			WINDOW_STYLE_FILLED
+		  textstyle		ITEM_TEXTSTYLE_SHADOWED
+		  rect			360 420 80 15 HORIZONTAL_ALIGN_DEFAULT VERTICAL_ALIGN_DEFAULT
+		  textalign		ITEM_ALIGN_CENTER
+		  textfont		CHOICE_TEXTFONT
+		  textscale		TEXTSIZE_SMALL
+		  textaligny		15
+			forecolor		.9 .9 .95 1
+			visible			1
+		  mouseEnter { play "mouse_over"; } 
+		  action { play "mouse_click"; exec "rcon g_gametype htf"; }
+		}
+
+//Temp Ban Player
+//Title Temp Ban player
+
+		itemDef
+		{
+			type			ITEM_TYPE_TEXT
+			rect			228 290 80 0 HORIZONTAL_ALIGN_DEFAULT VERTICAL_ALIGN_DEFAULT
+			text                   "@RC_RCON_TEMP_BAN_PLAYER"
+			textfont		UI_FONT_NORMAL
+			textscale		.4
+			textstyle		ITEM_TEXTSTYLE_SHADOWED
+			textAlign		ITEM_ALIGN_MIDDLE_LEFT
+			forecolor		COLOR_FOCUSED
+			visible			1
+			decoration	
+		}
+// 1st col
+		itemDef
+		{
+			name      playertb0
+			text      " 0"
+			type			1
+		  style			WINDOW_STYLE_FILLED
+		  textstyle		ITEM_TEXTSTYLE_SHADOWED
+		  rect			235 300 80 15 HORIZONTAL_ALIGN_DEFAULT VERTICAL_ALIGN_DEFAULT
+		  textalign		ITEM_ALIGN_LEFT
+		  textfont		CHOICE_TEXTFONT
+		  textscale		TEXTSIZE_SMALL
+		  textaligny		15
+			forecolor		.9 .9 .95 1
+			visible			1
+		  mouseEnter { play "mouse_over"; } 
+		  action { play "mouse_click"; exec "rcon tempBanClient 0"; }
+		}
+		itemDef
+		{
+			name      playertb1
+			text      " 1"
+			type			1
+		  style			WINDOW_STYLE_FILLED
+		  textstyle		ITEM_TEXTSTYLE_SHADOWED
+		  rect			235 315 80 15 HORIZONTAL_ALIGN_DEFAULT VERTICAL_ALIGN_DEFAULT
+		  textalign		ITEM_ALIGN_LEFT
+		  textfont		CHOICE_TEXTFONT
+		  textscale		TEXTSIZE_SMALL
+		  textaligny		15
+			forecolor		.9 .9 .95 1
+			visible			1
+		  mouseEnter { play "mouse_over"; } 
+		  action { play "mouse_click"; exec "rcon tempBanClient 1"; }
+		}
+		itemDef
+		{
+			name      playertb2
+			text      " 2"
+			type			1
+		  style			WINDOW_STYLE_FILLED
+		  textstyle		ITEM_TEXTSTYLE_SHADOWED
+		  rect			235 330 80 15 HORIZONTAL_ALIGN_DEFAULT VERTICAL_ALIGN_DEFAULT
+		  textalign		ITEM_ALIGN_LEFT
+		  textfont		CHOICE_TEXTFONT
+		  textscale		TEXTSIZE_SMALL
+		  textaligny		15
+			forecolor		.9 .9 .95 1
+			visible			1
+		  mouseEnter { play "mouse_over"; } 
+		  action { play "mouse_click"; exec "rcon tempBanClient 2"; }
+		}
+		itemDef
+		{
+			name      playertb3
+			text      " 3"
+			type			1
+		  style			WINDOW_STYLE_FILLED
+		  textstyle		ITEM_TEXTSTYLE_SHADOWED
+		  rect			235 345 80 15 HORIZONTAL_ALIGN_DEFAULT VERTICAL_ALIGN_DEFAULT
+		  textalign		ITEM_ALIGN_LEFT
+		  textfont		CHOICE_TEXTFONT
+		  textscale		TEXTSIZE_SMALL
+		  textaligny		15
+			forecolor		.9 .9 .95 1
+			visible			1
+		  mouseEnter { play "mouse_over"; } 
+		  action { play "mouse_click"; exec "rcon tempBanClient 3"; }
+		}
+		itemDef
+		{
+			name      playertb4
+			text      " 4"
+			type			1
+		  style			WINDOW_STYLE_FILLED
+		  textstyle		ITEM_TEXTSTYLE_SHADOWED
+		  rect			235 360 80 15 HORIZONTAL_ALIGN_DEFAULT VERTICAL_ALIGN_DEFAULT
+		  textalign		ITEM_ALIGN_LEFT
+		  textfont		CHOICE_TEXTFONT
+		  textscale		TEXTSIZE_SMALL
+		  textaligny		15
+			forecolor		.9 .9 .95 1
+			visible			1
+		  mouseEnter { play "mouse_over"; } 
+		  action { play "mouse_click"; exec "rcon tempBanClient 4"; }
+		}
+		itemDef
+		{
+			name      playertb5
+			text      " 5"
+			type			1
+		  style			WINDOW_STYLE_FILLED
+		  textstyle		ITEM_TEXTSTYLE_SHADOWED
+		  rect			235 375 80 15 HORIZONTAL_ALIGN_DEFAULT VERTICAL_ALIGN_DEFAULT
+		  textalign		ITEM_ALIGN_LEFT
+		  textfont		CHOICE_TEXTFONT
+		  textscale		TEXTSIZE_SMALL
+		  textaligny		15
+			forecolor		.9 .9 .95 1
+			visible			1
+		  mouseEnter { play "mouse_over"; } 
+		  action { play "mouse_click"; exec "rcon tempBanClient 5"; }
+		}
+		itemDef
+		{
+			name      playertb6
+			text      " 6"
+			type			1
+		  style			WINDOW_STYLE_FILLED
+		  textstyle		ITEM_TEXTSTYLE_SHADOWED
+		  rect			235 390 80 15 HORIZONTAL_ALIGN_DEFAULT VERTICAL_ALIGN_DEFAULT		  
+                  textalign		ITEM_ALIGN_LEFT
+		  textfont		CHOICE_TEXTFONT
+		  textscale		TEXTSIZE_SMALL
+		  textaligny		15
+			forecolor		.9 .9 .95 1
+			visible			1
+		  mouseEnter { play "mouse_over"; } 
+		  action { play "mouse_click"; exec "rcon tempBanClient 6"; }
+		}
+		itemDef
+		{
+			name      playertb7
+			text      " 7"
+			type			1
+		  style			WINDOW_STYLE_FILLED
+		  textstyle		ITEM_TEXTSTYLE_SHADOWED
+		  rect			235 405 80 15 HORIZONTAL_ALIGN_DEFAULT VERTICAL_ALIGN_DEFAULT
+		  textalign		ITEM_ALIGN_LEFT
+		  textfont		CHOICE_TEXTFONT
+		  textscale		TEXTSIZE_SMALL
+		  textaligny		15
+			forecolor		.9 .9 .95 1
+			visible			1
+		  mouseEnter { play "mouse_over"; } 
+		  action { play "mouse_click"; exec "rcon tempBanClient 7"; }
+		}
+// 2nd col
+		itemDef
+		{
+			name      playertb8
+			text      " 8"
+			type			1
+		  style			WINDOW_STYLE_FILLED
+		  textstyle		ITEM_TEXTSTYLE_SHADOWED
+		  rect			250 300 80 15 HORIZONTAL_ALIGN_DEFAULT VERTICAL_ALIGN_DEFAULT
+		  textalign		ITEM_ALIGN_LEFT
+		  textfont		CHOICE_TEXTFONT
+		  textscale		TEXTSIZE_SMALL
+		  textaligny		15
+			forecolor		.9 .9 .95 1
+			visible			1
+		  mouseEnter { play "mouse_over"; } 
+		  action { play "mouse_click"; exec "rcon tempBanClient 8"; }
+		}
+		itemDef
+		{
+			name      playertb9
+			text      " 9"
+			type			1
+		  style			WINDOW_STYLE_FILLED
+		  textstyle		ITEM_TEXTSTYLE_SHADOWED
+		  rect			250 315 80 15 HORIZONTAL_ALIGN_DEFAULT VERTICAL_ALIGN_DEFAULT
+		  textalign		ITEM_ALIGN_LEFT
+		  textfont		CHOICE_TEXTFONT
+		  textscale		TEXTSIZE_SMALL
+		  textaligny		15
+			forecolor		.9 .9 .95 1
+			visible			1
+		  mouseEnter { play "mouse_over"; } 
+		  action { play "mouse_click"; exec "rcon tempBanClient 9"; }
+		}
+		itemDef
+		{
+			name      playertb10
+			text      "10"
+			type			1
+		  style			WINDOW_STYLE_FILLED
+		  textstyle		ITEM_TEXTSTYLE_SHADOWED
+		  rect			250 330 80 15 HORIZONTAL_ALIGN_DEFAULT VERTICAL_ALIGN_DEFAULT
+		  textalign		ITEM_ALIGN_LEFT
+		  textfont		CHOICE_TEXTFONT
+		  textscale		TEXTSIZE_SMALL
+		  textaligny		15
+			forecolor		.9 .9 .95 1
+			visible			1
+		  mouseEnter { play "mouse_over"; } 
+		  action { play "mouse_click"; exec "rcon tempBanClient 10"; }
+		}
+		itemDef
+		{
+			name      playertb11
+			text      "11"
+			type			1
+		  style			WINDOW_STYLE_FILLED
+		  textstyle		ITEM_TEXTSTYLE_SHADOWED
+		  rect			250 345 80 15 HORIZONTAL_ALIGN_DEFAULT VERTICAL_ALIGN_DEFAULT
+		  textalign		ITEM_ALIGN_LEFT
+		  textfont		CHOICE_TEXTFONT
+		  textscale		TEXTSIZE_SMALL
+		  textaligny		15
+			forecolor		.9 .9 .95 1
+			visible			1
+		  mouseEnter { play "mouse_over"; } 
+		  action { play "mouse_click"; exec "rcon tempBanClient 11"; }
+		}
+		itemDef
+		{
+			name      playertb12
+			text      "12"
+			type			1
+		  style			WINDOW_STYLE_FILLED
+		  textstyle		ITEM_TEXTSTYLE_SHADOWED
+		  rect			250 360 80 15 HORIZONTAL_ALIGN_DEFAULT VERTICAL_ALIGN_DEFAULT
+		  textalign		ITEM_ALIGN_LEFT
+		  textfont		CHOICE_TEXTFONT
+		  textscale		TEXTSIZE_SMALL
+		  textaligny		15
+			forecolor		.9 .9 .95 1
+			visible			1
+		  mouseEnter { play "mouse_over"; } 
+		  action { play "mouse_click"; exec "rcon tempBanClient 12"; }
+		}
+		itemDef
+		{
+			name      playertb13
+			text      "13"
+			type			1
+		  style			WINDOW_STYLE_FILLED
+		  textstyle		ITEM_TEXTSTYLE_SHADOWED
+		  rect			250 375 80 15 HORIZONTAL_ALIGN_DEFAULT VERTICAL_ALIGN_DEFAULT
+		  textalign		ITEM_ALIGN_LEFT
+		  textfont		CHOICE_TEXTFONT
+		  textscale		TEXTSIZE_SMALL
+		  textaligny		15
+			forecolor		.9 .9 .95 1
+			visible			1
+		  mouseEnter { play "mouse_over"; } 
+		  action { play "mouse_click"; exec "rcon tempBanClient 13"; }
+		}
+		itemDef
+		{
+			name      playertb14
+			text      "14"
+			type			1
+		  style			WINDOW_STYLE_FILLED
+		  textstyle		ITEM_TEXTSTYLE_SHADOWED
+		  rect			250 390 80 15 HORIZONTAL_ALIGN_DEFAULT VERTICAL_ALIGN_DEFAULT
+		  textalign		ITEM_ALIGN_LEFT
+		  textfont		CHOICE_TEXTFONT
+		  textscale		TEXTSIZE_SMALL
+		  textaligny		15
+			forecolor		.9 .9 .95 1
+			visible			1
+		  mouseEnter { play "mouse_over"; } 
+		  action { play "mouse_click"; exec "rcon tempBanClient 14"; }
+		}
+		itemDef
+		{
+			name      playertb15
+			text      "15"
+			type			1
+		  style			WINDOW_STYLE_FILLED
+		  textstyle		ITEM_TEXTSTYLE_SHADOWED
+		  rect			250 405 80 15 HORIZONTAL_ALIGN_DEFAULT VERTICAL_ALIGN_DEFAULT
+		  textalign		ITEM_ALIGN_LEFT
+		  textfont		CHOICE_TEXTFONT
+		  textscale		TEXTSIZE_SMALL
+		  textaligny		15
+			forecolor		.9 .9 .95 1
+			visible			1
+		  mouseEnter { play "mouse_over"; } 
+		  action { play "mouse_click"; exec "rcon tempBanClient 15"; }
+		}
+// 3rd col
+		itemDef
+		{
+			name      playertb16
+			text      "16"
+			type			1
+		  style			WINDOW_STYLE_FILLED
+		  textstyle		ITEM_TEXTSTYLE_SHADOWED
+		  rect			270 300 80 15 HORIZONTAL_ALIGN_DEFAULT VERTICAL_ALIGN_DEFAULT
+		  textalign		ITEM_ALIGN_LEFT
+		  textfont		CHOICE_TEXTFONT
+		  textscale		TEXTSIZE_SMALL
+		  textaligny		15
+			forecolor		.9 .9 .95 1
+			visible			1
+		  mouseEnter { play "mouse_over"; } 
+		  action { play "mouse_click"; exec "rcon tempBanClient 16"; }
+		}
+		itemDef
+		{
+			name      playertb17
+			text      "17"
+			type			1
+		  style			WINDOW_STYLE_FILLED
+		  textstyle		ITEM_TEXTSTYLE_SHADOWED
+		  rect			270 315 80 15 HORIZONTAL_ALIGN_DEFAULT VERTICAL_ALIGN_DEFAULT
+		  textalign		ITEM_ALIGN_LEFT
+		  textfont		CHOICE_TEXTFONT
+		  textscale		TEXTSIZE_SMALL
+		  textaligny		15
+			forecolor		.9 .9 .95 1
+			visible			1
+		  mouseEnter { play "mouse_over"; } 
+		  action { play "mouse_click"; exec "rcon tempBanClient 17"; }
+		}
+		itemDef
+		{
+			name      playertb18
+			text      "18"
+			type			1
+		  style			WINDOW_STYLE_FILLED
+		  textstyle		ITEM_TEXTSTYLE_SHADOWED
+		  rect			270 330 80 15 HORIZONTAL_ALIGN_DEFAULT VERTICAL_ALIGN_DEFAULT
+		  textalign		ITEM_ALIGN_LEFT
+		  textfont		CHOICE_TEXTFONT
+		  textscale		TEXTSIZE_SMALL
+		  textaligny		15
+			forecolor		.9 .9 .95 1
+			visible			1
+		  mouseEnter { play "mouse_over"; } 
+		  action { play "mouse_click"; exec "rcon tempBanClient 18"; }
+		}
+		itemDef
+		{
+			name      playertb19
+			text      "19"
+			type			1
+		  style			WINDOW_STYLE_FILLED
+		  textstyle		ITEM_TEXTSTYLE_SHADOWED
+		  rect			270 345 80 15 HORIZONTAL_ALIGN_DEFAULT VERTICAL_ALIGN_DEFAULT
+		  textalign		ITEM_ALIGN_LEFT
+		  textfont		CHOICE_TEXTFONT
+		  textscale		TEXTSIZE_SMALL
+		  textaligny		15
+			forecolor		.9 .9 .95 1
+			visible			1
+		  mouseEnter { play "mouse_over"; } 
+		  action { play "mouse_click"; exec "rcon tempBanClient 19"; }
+		}
+		itemDef
+		{
+			name      playertb20
+			text      "20"
+			type			1
+		  style			WINDOW_STYLE_FILLED
+		  textstyle		ITEM_TEXTSTYLE_SHADOWED
+		  rect			270 360 80 15 HORIZONTAL_ALIGN_DEFAULT VERTICAL_ALIGN_DEFAULT
+		  textalign		ITEM_ALIGN_LEFT
+		  textfont		CHOICE_TEXTFONT
+		  textscale		TEXTSIZE_SMALL
+		  textaligny		15
+			forecolor		.9 .9 .95 1
+			visible			1
+		  mouseEnter { play "mouse_over"; } 
+		  action { play "mouse_click"; exec "rcon tempBanClient 20"; }
+		}
+		itemDef
+		{
+			name      playertb21
+			text      "21"
+			type			1
+		  style			WINDOW_STYLE_FILLED
+		  textstyle		ITEM_TEXTSTYLE_SHADOWED
+		  rect			270 375 80 15 HORIZONTAL_ALIGN_DEFAULT VERTICAL_ALIGN_DEFAULT
+		  textalign		ITEM_ALIGN_LEFT
+		  textfont		CHOICE_TEXTFONT
+		  textscale		TEXTSIZE_SMALL
+		  textaligny		15
+			forecolor		.9 .9 .95 1
+			visible			1
+		  mouseEnter { play "mouse_over"; } 
+		  action { play "mouse_click"; exec "rcon tempBanClient 21"; }
+		}
+		itemDef
+		{
+			name      playertb22
+			text      "22"
+			type			1
+		  style			WINDOW_STYLE_FILLED
+		  textstyle		ITEM_TEXTSTYLE_SHADOWED
+		  rect			270 390 80 15 HORIZONTAL_ALIGN_DEFAULT VERTICAL_ALIGN_DEFAULT
+		  textalign		ITEM_ALIGN_LEFT
+		  textfont		CHOICE_TEXTFONT
+		  textscale		TEXTSIZE_SMALL
+		  textaligny		15
+			forecolor		.9 .9 .95 1
+			visible			1
+		  mouseEnter { play "mouse_over"; } 
+		  action { play "mouse_click"; exec "rcon tempBanClient 22"; }
+		}
+		itemDef
+		{
+			name      playertb23
+			text      "23"
+			type			1
+		  style			WINDOW_STYLE_FILLED
+		  textstyle		ITEM_TEXTSTYLE_SHADOWED
+		  rect			270 405 80 15 HORIZONTAL_ALIGN_DEFAULT VERTICAL_ALIGN_DEFAULT
+		  textalign		ITEM_ALIGN_LEFT
+		  textfont		CHOICE_TEXTFONT
+		  textscale		TEXTSIZE_SMALL
+		  textaligny		15
+			forecolor		.9 .9 .95 1
+			visible			1
+		  mouseEnter { play "mouse_over"; } 
+		  action { play "mouse_click"; exec "rcon tempBanClient 23"; }
+		}
+// 4th col
+		itemDef
+		{
+			name      playertb24
+			text      "24"
+			type			1
+		  style			WINDOW_STYLE_FILLED
+		  textstyle		ITEM_TEXTSTYLE_SHADOWED
+		  rect			290 300 80 15 HORIZONTAL_ALIGN_DEFAULT VERTICAL_ALIGN_DEFAULT
+		  textalign		ITEM_ALIGN_LEFT
+		  textfont		CHOICE_TEXTFONT
+		  textscale		TEXTSIZE_SMALL
+		  textaligny		15
+			forecolor		.9 .9 .95 1
+			visible			1
+		  mouseEnter { play "mouse_over"; } 
+		  action { play "mouse_click"; exec "rcon tempBanClient 24"; }
+		}
+		itemDef
+		{
+			name      playertb25
+			text      "25"
+			type			1
+		  style			WINDOW_STYLE_FILLED
+		  textstyle		ITEM_TEXTSTYLE_SHADOWED
+		  rect			290 315 80 15 HORIZONTAL_ALIGN_DEFAULT VERTICAL_ALIGN_DEFAULT
+		  textalign		ITEM_ALIGN_LEFT
+		  textfont		CHOICE_TEXTFONT
+		  textscale		TEXTSIZE_SMALL
+		  textaligny		15
+			forecolor		.9 .9 .95 1
+			visible			1
+		  mouseEnter { play "mouse_over"; } 
+		  action { play "mouse_click"; exec "rcon tempBanClient 25"; }
+		}
+		itemDef
+		{
+			name      playertb26
+			text      "26"
+			type			1
+		  style			WINDOW_STYLE_FILLED
+		  textstyle		ITEM_TEXTSTYLE_SHADOWED
+		  rect			290 330 80 15 HORIZONTAL_ALIGN_DEFAULT VERTICAL_ALIGN_DEFAULT
+		  textalign		ITEM_ALIGN_LEFT
+		  textfont		CHOICE_TEXTFONT
+		  textscale		TEXTSIZE_SMALL
+		  textaligny		15
+			forecolor		.9 .9 .95 1
+			visible			1
+		  mouseEnter { play "mouse_over"; } 
+		  action { play "mouse_click"; exec "rcon tempBanClient 26"; }
+		}
+		itemDef
+		{
+			name      playertb27
+			text      "27"
+			type			1
+		  style			WINDOW_STYLE_FILLED
+		  textstyle		ITEM_TEXTSTYLE_SHADOWED
+		  rect			290 345 80 15 HORIZONTAL_ALIGN_DEFAULT VERTICAL_ALIGN_DEFAULT
+		  textalign		ITEM_ALIGN_LEFT
+		  textfont		CHOICE_TEXTFONT
+		  textscale		TEXTSIZE_SMALL
+		  textaligny		15
+			forecolor		.9 .9 .95 1
+			visible			1
+		  mouseEnter { play "mouse_over"; } 
+		  action { play "mouse_click"; exec "rcon tempBanClient 27"; }
+		}
+		itemDef
+		{
+			name      playertb28
+			text      "28"
+			type			1
+		  style			WINDOW_STYLE_FILLED
+		  textstyle		ITEM_TEXTSTYLE_SHADOWED
+		  rect			290 360 80 15 HORIZONTAL_ALIGN_DEFAULT VERTICAL_ALIGN_DEFAULT
+		  textalign		ITEM_ALIGN_LEFT
+		  textfont		CHOICE_TEXTFONT
+		  textscale		TEXTSIZE_SMALL
+		  textaligny		15
+			forecolor		.9 .9 .95 1
+			visible			1
+		  mouseEnter { play "mouse_over"; } 
+		  action { play "mouse_click"; exec "rcon tempBanClient 28"; }
+		}
+		itemDef
+		{
+			name      playertb29
+			text      "29"
+			type			1
+		  style			WINDOW_STYLE_FILLED
+		  textstyle		ITEM_TEXTSTYLE_SHADOWED
+		  rect			290 375 80 15 HORIZONTAL_ALIGN_DEFAULT VERTICAL_ALIGN_DEFAULT
+		  textalign		ITEM_ALIGN_LEFT
+		  textfont		CHOICE_TEXTFONT
+		  textscale		TEXTSIZE_SMALL
+		  textaligny		15
+			forecolor		.9 .9 .95 1
+			visible			1
+		  mouseEnter { play "mouse_over"; } 
+		  action { play "mouse_click"; exec "rcon tempBanClient 29"; }
+		}
+		itemDef
+		{
+			name      playertb30
+			text      "30"
+			type			1
+		  style			WINDOW_STYLE_FILLED
+		  textstyle		ITEM_TEXTSTYLE_SHADOWED
+		  rect			290 390 80 15 HORIZONTAL_ALIGN_DEFAULT VERTICAL_ALIGN_DEFAULT
+		  textalign		ITEM_ALIGN_LEFT
+		  textfont		CHOICE_TEXTFONT
+		  textscale		TEXTSIZE_SMALL
+		  textaligny		15
+			forecolor		.9 .9 .95 1
+			visible			1
+		  mouseEnter { play "mouse_over"; } 
+		  action { play "mouse_click"; exec "rcon tempBanClient 30"; }
+		}
+		itemDef
+		{
+			name      playertb31
+			text      "31"
+			type			1
+		  style			WINDOW_STYLE_FILLED
+		  textstyle		ITEM_TEXTSTYLE_SHADOWED
+		  rect			290 405 80 15 HORIZONTAL_ALIGN_DEFAULT VERTICAL_ALIGN_DEFAULT
+		  textalign		ITEM_ALIGN_LEFT
+		  textfont		CHOICE_TEXTFONT
+		  textscale		TEXTSIZE_SMALL
+		  textaligny		15
+			forecolor		.9 .9 .95 1
+			visible			1
+		  mouseEnter { play "mouse_over"; } 
+		  action { play "mouse_click"; exec "rcon tempBanClient 31"; }
+		}
+// 5th col
+		itemDef
+		{
+			name      playertb32
+			text      "32"
+			type			1
+		  style			WINDOW_STYLE_FILLED
+		  textstyle		ITEM_TEXTSTYLE_SHADOWED
+		  rect			310 300 80 15 HORIZONTAL_ALIGN_DEFAULT VERTICAL_ALIGN_DEFAULT
+		  textalign		ITEM_ALIGN_LEFT
+		  textfont		CHOICE_TEXTFONT
+		  textscale		TEXTSIZE_SMALL
+		  textaligny		15
+			forecolor		.9 .9 .95 1
+			visible			1
+		  mouseEnter { play "mouse_over"; } 
+		  action { play "mouse_click"; exec "rcon tempBanClient 32"; }
+		}
+		itemDef
+		{
+			name      playertb33
+			text      "33"
+			type			1
+		  style			WINDOW_STYLE_FILLED
+		  textstyle		ITEM_TEXTSTYLE_SHADOWED
+		  rect			310 315 80 15 HORIZONTAL_ALIGN_DEFAULT VERTICAL_ALIGN_DEFAULT
+		  textalign		ITEM_ALIGN_LEFT
+		  textfont		CHOICE_TEXTFONT
+		  textscale		TEXTSIZE_SMALL
+		  textaligny		15
+			forecolor		.9 .9 .95 1
+			visible			1
+		  mouseEnter { play "mouse_over"; } 
+		  action { play "mouse_click"; exec "rcon tempBanClient 33"; }
+		}
+		itemDef
+		{
+			name      playertb34
+			text      "34"
+			type			1
+		  style			WINDOW_STYLE_FILLED
+		  textstyle		ITEM_TEXTSTYLE_SHADOWED
+		  rect			310 330 80 15 HORIZONTAL_ALIGN_DEFAULT VERTICAL_ALIGN_DEFAULT
+		  textalign		ITEM_ALIGN_LEFT
+		  textfont		CHOICE_TEXTFONT
+		  textscale		TEXTSIZE_SMALL
+		  textaligny		15
+			forecolor		.9 .9 .95 1
+			visible			1
+		  mouseEnter { play "mouse_over"; } 
+		  action { play "mouse_click"; exec "rcon tempBanClient 34"; }
+		}
+		itemDef
+		{
+			name      playertb35
+			text      "35"
+			type			1
+		  style			WINDOW_STYLE_FILLED
+		  textstyle		ITEM_TEXTSTYLE_SHADOWED
+		  rect			310 345 80 15 HORIZONTAL_ALIGN_DEFAULT VERTICAL_ALIGN_DEFAULT
+		  textalign		ITEM_ALIGN_LEFT
+		  textfont		CHOICE_TEXTFONT
+		  textscale		TEXTSIZE_SMALL
+		  textaligny		15
+			forecolor		.9 .9 .95 1
+			visible			1
+		  mouseEnter { play "mouse_over"; } 
+		  action { play "mouse_click"; exec "rcon tempBanClient 35"; }
+		}
+		itemDef
+		{
+			name      playertb36
+			text      "36"
+			type			1
+		  style			WINDOW_STYLE_FILLED
+		  textstyle		ITEM_TEXTSTYLE_SHADOWED
+		  rect			310 360 80 15 HORIZONTAL_ALIGN_DEFAULT VERTICAL_ALIGN_DEFAULT
+		  textalign		ITEM_ALIGN_LEFT
+		  textfont		CHOICE_TEXTFONT
+		  textscale		TEXTSIZE_SMALL
+		  textaligny		15
+			forecolor		.9 .9 .95 1
+			visible			1
+		  mouseEnter { play "mouse_over"; } 
+		  action { play "mouse_click"; exec "rcon tempBanClient 36"; }
+		}
+		itemDef
+		{
+			name      playertb37
+			text      "37"
+			type			1
+		  style			WINDOW_STYLE_FILLED
+		  textstyle		ITEM_TEXTSTYLE_SHADOWED
+		  rect			310 375 80 15 HORIZONTAL_ALIGN_DEFAULT VERTICAL_ALIGN_DEFAULT
+		  textalign		ITEM_ALIGN_LEFT
+		  textfont		CHOICE_TEXTFONT
+		  textscale		TEXTSIZE_SMALL
+		  textaligny		15
+			forecolor		.9 .9 .95 1
+			visible			1
+		  mouseEnter { play "mouse_over"; } 
+		  action { play "mouse_click"; exec "rcon tempBanClient 37"; }
+		}
+		itemDef
+		{
+			name      playertb38
+			text      "38"
+			type			1
+		  style			WINDOW_STYLE_FILLED
+		  textstyle		ITEM_TEXTSTYLE_SHADOWED
+		  rect			310 390 80 15 HORIZONTAL_ALIGN_DEFAULT VERTICAL_ALIGN_DEFAULT
+		  textalign		ITEM_ALIGN_LEFT
+		  textfont		CHOICE_TEXTFONT
+		  textscale		TEXTSIZE_SMALL
+		  textaligny		15
+			forecolor		.9 .9 .95 1
+			visible			1
+		  mouseEnter { play "mouse_over"; } 
+		  action { play "mouse_click"; exec "rcon tempBanClient 38"; }
+		}
+		itemDef
+		{
+			name      playertb39
+			text      "39"
+			type			1
+		  style			WINDOW_STYLE_FILLED
+		  textstyle		ITEM_TEXTSTYLE_SHADOWED
+		  rect			310 405 80 15 HORIZONTAL_ALIGN_DEFAULT VERTICAL_ALIGN_DEFAULT
+		  textalign		ITEM_ALIGN_LEFT
+		  textfont		CHOICE_TEXTFONT
+		  textscale		TEXTSIZE_SMALL
+		  textaligny		15
+			forecolor		.9 .9 .95 1
+			visible			1
+		  mouseEnter { play "mouse_over"; } 
+		  action { play "mouse_click"; exec "rcon tempBanClient 39"; }
+		}
+// Restart Next
+// Title Restart Next
+		itemDef
+		{
+			type			ITEM_TYPE_TEXT
+			rect			470 125 80 0 HORIZONTAL_ALIGN_DEFAULT VERTICAL_ALIGN_DEFAULT
+			text      "@RC_RCON_RESTART"
+			textfont		UI_FONT_NORMAL
+			textscale		.4
+			textstyle		ITEM_TEXTSTYLE_SHADOWED
+			textAlign		ITEM_ALIGN_MIDDLE_LEFT
+			forecolor		COLOR_FOCUSED
+			visible			1
+			decoration	
+		}
+// Restart Next
+		itemDef
+		{
+			name      map_restart
+			text      "@RC_RCON_MAPRESTART"
+			type			1
+		  style			WINDOW_STYLE_FILLED
+		  textstyle		ITEM_TEXTSTYLE_SHADOWED
+			rect			480 140 80 15 HORIZONTAL_ALIGN_DEFAULT VERTICAL_ALIGN_DEFAULT
+		  textalign		ITEM_ALIGN_CENTER
+		  textfont		CHOICE_TEXTFONT
+		  textscale		TEXTSIZE_SMALL
+		  textaligny		15
+			forecolor		.9 .9 .95 1
+			visible			1
+		  mouseEnter { play "mouse_over"; } 
+		  action { play "mouse_click"; exec "rcon map_restart"; }	
+		}
+		itemDef
+		{
+			name      fast_restart
+			text      "@RC_RCON_FASTRESTART"
+			type			1
+		  style			WINDOW_STYLE_FILLED
+		  textstyle		ITEM_TEXTSTYLE_SHADOWED
+			rect			480 155 80 15 HORIZONTAL_ALIGN_DEFAULT VERTICAL_ALIGN_DEFAULT
+		  textalign		ITEM_ALIGN_CENTER
+		  textfont		CHOICE_TEXTFONT
+		  textscale		TEXTSIZE_SMALL
+		  textaligny		15
+			forecolor		.9 .9 .95 1
+			visible			1
+		  mouseEnter { play "mouse_over"; } 
+		  action { play "mouse_click"; exec "rcon fast_restart"; }
+		}
+		itemDef
+		{
+			name      map_rotate
+			text      "@RC_RCON_NEXTMAP"
+			type			1
+		  style			WINDOW_STYLE_FILLED
+		  textstyle		ITEM_TEXTSTYLE_SHADOWED
+			rect			480 170 80 15 HORIZONTAL_ALIGN_DEFAULT VERTICAL_ALIGN_DEFAULT
+		  textalign		ITEM_ALIGN_CENTER
+		  textfont		CHOICE_TEXTFONT
+		  textscale		TEXTSIZE_SMALL
+		  textaligny		15
+			forecolor		.9 .9 .95 1
+			visible			1
+		  mouseEnter { play "mouse_over"; } 
+		  action { play "mouse_click"; exec "rcon map_restart"; }
+		}
+		itemDef
+		{
+			name      map_rotate
+			text      "@RC_RCON_ENDMAP"
+			type			1
+		  style			WINDOW_STYLE_FILLED
+		  textstyle		ITEM_TEXTSTYLE_SHADOWED
+			rect			480 185 80 15 HORIZONTAL_ALIGN_DEFAULT VERTICAL_ALIGN_DEFAULT
+		  textalign		ITEM_ALIGN_CENTER
+		  textfont		CHOICE_TEXTFONT
+		  textscale		TEXTSIZE_SMALL
+		  textaligny		15
+			forecolor		.9 .9 .95 1
+			visible			1
+		  mouseEnter { play "mouse_over"; } 
+		  action { play "mouse_click"; exec "rcon set endmap 1"; }
+		}
+// ReadMe
+
+// Map
+		itemDef
+		{
+			type			ITEM_TYPE_TEXT
+			rect			470 210 150 0 HORIZONTAL_ALIGN_DEFAULT VERTICAL_ALIGN_DEFAULT
+			text      "@RC_RCON_MAPSTACUST"
+			textfont		UI_FONT_NORMAL
+			textscale		.3
+			textstyle		ITEM_TEXTSTYLE_SHADOWED
+			textAlign		ITEM_ALIGN_MIDDLE_LEFT
+			forecolor		COLOR_FOCUSED
+			visible			1
+			decoration	
+		}
+		itemDef
+		{
+			type			ITEM_TYPE_TEXT
+			rect			470 220 150 0 HORIZONTAL_ALIGN_DEFAULT VERTICAL_ALIGN_DEFAULT
+			text      "@RC_RCON_MAPSTACUST_EXP"
+			textfont		UI_FONT_NORMAL
+			textscale		.2
+			textstyle		ITEM_TEXTSTYLE_SHADOWED
+			textAlign		ITEM_ALIGN_MIDDLE_LEFT
+			forecolor		COLOR_FOCUSED
+			visible			1
+			decoration	
+		}
+// Kick/Ban Player
+		itemDef
+		{
+			type			ITEM_TYPE_TEXT
+			rect			470 240 150 0 HORIZONTAL_ALIGN_DEFAULT VERTICAL_ALIGN_DEFAULT
+			text      "@RC_RCON_KICK_BAN"
+			textfont		UI_FONT_NORMAL
+			textscale		.3
+			textstyle		ITEM_TEXTSTYLE_SHADOWED
+			textAlign		ITEM_ALIGN_MIDDLE_LEFT
+			forecolor		COLOR_FOCUSED
+			visible			1
+			decoration	
+		}
+		itemDef
+		{
+			type			ITEM_TYPE_TEXT
+			rect			470 250 150 0 HORIZONTAL_ALIGN_DEFAULT VERTICAL_ALIGN_DEFAULT
+			text      "@RC_RCON_CLIK_STATUS"
+			textfont		UI_FONT_NORMAL
+			textscale		.2
+			textstyle		ITEM_TEXTSTYLE_SHADOWED
+			textAlign		ITEM_ALIGN_MIDDLE_LEFT
+			forecolor		COLOR_FOCUSED
+			visible			1
+			decoration	
+		}
+		itemDef
+		{
+			type			ITEM_TYPE_TEXT
+			rect			470 260 150 0 HORIZONTAL_ALIGN_DEFAULT VERTICAL_ALIGN_DEFAULT
+			text      "@RC_RCON_OPEN_CONSOLE"
+			textfont		UI_FONT_NORMAL
+			textscale		.2
+			textstyle		ITEM_TEXTSTYLE_SHADOWED
+			textAlign		ITEM_ALIGN_MIDDLE_LEFT
+			forecolor		COLOR_FOCUSED
+			visible			1
+			decoration	
+		}
+		itemDef
+		{
+			type			ITEM_TYPE_TEXT
+			rect			470 270 150 0 HORIZONTAL_ALIGN_DEFAULT VERTICAL_ALIGN_DEFAULT
+			text      "@RC_RCON_LOOK_NUM"
+			textfont		UI_FONT_NORMAL
+			textscale		.2
+			textstyle		ITEM_TEXTSTYLE_SHADOWED
+			textAlign		ITEM_ALIGN_MIDDLE_LEFT
+			forecolor		COLOR_FOCUSED
+			visible			1
+			decoration	
+		}
+		itemDef
+		{
+			type			ITEM_TYPE_TEXT
+			rect			470 280 150 0 HORIZONTAL_ALIGN_DEFAULT VERTICAL_ALIGN_DEFAULT
+			text      "@RC_RCON_CLOSE_CONSOLE"
+			textfont		UI_FONT_NORMAL
+			textscale		.2
+			textstyle		ITEM_TEXTSTYLE_SHADOWED
+			textAlign		ITEM_ALIGN_MIDDLE_LEFT
+			forecolor		COLOR_FOCUSED
+			visible			1
+			decoration	
+		}
+		itemDef
+		{
+			type			ITEM_TYPE_TEXT
+			rect			470 290 150 0 HORIZONTAL_ALIGN_DEFAULT VERTICAL_ALIGN_DEFAULT
+			text      "@RC_RCON_CLIK_PLAYER"
+			textfont		UI_FONT_NORMAL
+			textscale		.2
+			textstyle		ITEM_TEXTSTYLE_SHADOWED
+			textAlign		ITEM_ALIGN_MIDDLE_LEFT
+			forecolor		COLOR_FOCUSED
+			visible			1
+			decoration	
+		}
+// Gametype
+		itemDef
+		{
+			type			ITEM_TYPE_TEXT
+			rect			470 310 150 0 HORIZONTAL_ALIGN_DEFAULT VERTICAL_ALIGN_DEFAULT
+			text      "@RC_RCON_GAMETYPET"
+			textfont		UI_FONT_NORMAL
+			textscale		.3
+			textstyle		ITEM_TEXTSTYLE_SHADOWED
+			textAlign		ITEM_ALIGN_MIDDLE_LEFT
+			forecolor		COLOR_FOCUSED
+			visible			1
+			decoration	
+		}
+		itemDef
+		{
+			type			ITEM_TYPE_TEXT
+			rect			470 320 150 0 HORIZONTAL_ALIGN_DEFAULT VERTICAL_ALIGN_DEFAULT
+			text      "@RC_RCON_GAMETYPE_EXPF"
+			textfont		UI_FONT_NORMAL
+			textscale		.2
+			textstyle		ITEM_TEXTSTYLE_SHADOWED
+			textAlign		ITEM_ALIGN_MIDDLE_LEFT
+			forecolor		COLOR_FOCUSED
+			visible			1
+			decoration	
+		}
+		itemDef
+		{
+			type			ITEM_TYPE_TEXT
+			rect			470 330 150 0 HORIZONTAL_ALIGN_DEFAULT VERTICAL_ALIGN_DEFAULT
+			text      "@RC_RCON_GAMETYPE_EXPS"
+			textfont		UI_FONT_NORMAL
+			textscale		.2
+			textstyle		ITEM_TEXTSTYLE_SHADOWED
+			textAlign		ITEM_ALIGN_MIDDLE_LEFT
+			forecolor		COLOR_FOCUSED
+			visible			1
+			decoration	
+		}
+// Kick All
+		itemDef
+		{
+			type			ITEM_TYPE_TEXT
+			rect			470 350 150 0 HORIZONTAL_ALIGN_DEFAULT VERTICAL_ALIGN_DEFAULT
+			text      "@RC_RCON_KICKALLT"
+			textfont		UI_FONT_NORMAL
+			textscale		.3
+			textstyle		ITEM_TEXTSTYLE_SHADOWED
+			textAlign		ITEM_ALIGN_MIDDLE_LEFT
+			forecolor		COLOR_FOCUSED
+			visible			1
+			decoration	
+		}
+		itemDef
+		{
+			type			ITEM_TYPE_TEXT
+			rect			470 360 150 0 HORIZONTAL_ALIGN_DEFAULT VERTICAL_ALIGN_DEFAULT
+			text      "@RC_RCON_KICKALL_EXP"
+			textfont		UI_FONT_NORMAL
+			textscale		.2
+			textstyle		ITEM_TEXTSTYLE_SHADOWED
+			textAlign		ITEM_ALIGN_MIDDLE_LEFT
+			forecolor		COLOR_FOCUSED
+			visible			1
+			decoration	
+		}
+		itemDef
+		{
+			type			ITEM_TYPE_TEXT
+			rect			470 370 150 0 HORIZONTAL_ALIGN_DEFAULT VERTICAL_ALIGN_DEFAULT
+			text      "@RC_RCON_KICKALL_EXPR"
+			textfont		UI_FONT_NORMAL
+			textscale		.2
+			textstyle		ITEM_TEXTSTYLE_SHADOWED
+			textAlign		ITEM_ALIGN_MIDDLE_LEFT
+			forecolor		COLOR_FOCUSED
+			visible			1
+			decoration	
+		}
+// Restart
+		itemDef
+		{
+			type			ITEM_TYPE_TEXT
+			rect			470 390 150 0 HORIZONTAL_ALIGN_DEFAULT VERTICAL_ALIGN_DEFAULT
+			text      "@RC_RCON_RESTARTT"
+			textfont		UI_FONT_NORMAL
+			textscale		.3
+			textstyle		ITEM_TEXTSTYLE_SHADOWED
+			textAlign		ITEM_ALIGN_MIDDLE_LEFT
+			forecolor		COLOR_FOCUSED
+			visible			1
+			decoration	
+		}
+		itemDef
+		{
+			type			ITEM_TYPE_TEXT
+			rect			470 400 150 0 HORIZONTAL_ALIGN_DEFAULT VERTICAL_ALIGN_DEFAULT
+			text      "@RC_RCON_MAPRESTART_EXP"
+			textfont		UI_FONT_NORMAL
+			textscale		.2
+			textstyle		ITEM_TEXTSTYLE_SHADOWED
+			textAlign		ITEM_ALIGN_MIDDLE_LEFT
+			forecolor		COLOR_FOCUSED
+			visible			1
+			decoration	
+		}
+		itemDef
+		{
+			type			ITEM_TYPE_TEXT
+			rect			470 410 150 0 HORIZONTAL_ALIGN_DEFAULT VERTICAL_ALIGN_DEFAULT
+			text      "@RC_RCON_FASTRESTART_EXP"
+			textfont		UI_FONT_NORMAL
+			textscale		.2
+			textstyle		ITEM_TEXTSTYLE_SHADOWED
+			textAlign		ITEM_ALIGN_MIDDLE_LEFT
+			forecolor		COLOR_FOCUSED
+			visible			1
+			decoration	
+		}
+		itemDef
+		{
+			type			ITEM_TYPE_TEXT
+			rect			470 420 150 0 HORIZONTAL_ALIGN_DEFAULT VERTICAL_ALIGN_DEFAULT
+			text      "@RC_RCON_NEXTMAP_EXP"
+			textfont		UI_FONT_NORMAL
+			textscale		.2
+			textstyle		ITEM_TEXTSTYLE_SHADOWED
+			textAlign		ITEM_ALIGN_MIDDLE_LEFT
+			forecolor		COLOR_FOCUSED
+			visible			1
+			decoration	
+		}
+		itemDef
+		{
+			type			ITEM_TYPE_TEXT
+			rect			470 430 150 0 HORIZONTAL_ALIGN_DEFAULT VERTICAL_ALIGN_DEFAULT
+			text      "@RC_RCON_ENDMAP_EXP"
+			textfont		UI_FONT_NORMAL
+			textscale		.2
+			textstyle		ITEM_TEXTSTYLE_SHADOWED
+			textAlign		ITEM_ALIGN_MIDDLE_LEFT
+			forecolor		COLOR_FOCUSED
+			visible			1
+			decoration	
+		}
+
+		#include "ui/safearea.menu"
+	}
+}
